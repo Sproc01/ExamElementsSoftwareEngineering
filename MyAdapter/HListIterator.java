@@ -14,9 +14,9 @@ public interface HListIterator extends HIterator
      *  The new element is inserted before the implicit cursor: a subsequent call to next would be unaffected, and a subsequent call to previous would return the new element. 
      * (This call increases by one the value that would be returned by a call to nextIndex or previousIndex.)
      * @param o the element to insert.
-     * @throws UnsupportedOperationException - if the add method is not supported by this list iterator.
-     * @throws ClassCastException - if the class of the specified element prevents it from being added to this list.
-     * @throws IllegalArgumentException - if some aspect of this element prevents it from being added to this list.
+     * @exception UnsupportedOperationException - if the add method is not supported by this list iterator.
+     * @exception ClassCastException - if the class of the specified element prevents it from being added to this list.
+     * @exception IllegalArgumentException - if some aspect of this element prevents it from being added to this list.
      */
     public void add(Object o);
 
@@ -36,7 +36,7 @@ public interface HListIterator extends HIterator
      * Returns the previous element in the list. 
      * This method may be called repeatedly to iterate through the list backwards, or intermixed with calls to next to go back and forth. (Note that alternating calls to next and previous will return the same element repeatedly.)
      * @return the previous element in the list
-     * @throws NoSuchElementException if the iteration has no previous element
+     * @exception NoSuchElementException if the iteration has no previous element
      */
     public Object previous();
     
@@ -50,10 +50,32 @@ public interface HListIterator extends HIterator
      * Replaces the last element returned by next or previous with the specified element (optional operation). 
      * This call can be made only if neither ListIterator.remove nor ListIterator.add have been called after the last call to next or previous.
      * @param o the element with which to replace the last element returned by next or previous
-     * @throws UnsupportedOperationException - if the set operation is not supported by this list iterator
-     * @throws ClassCastException - if the class of the specified element prevents it from being added to this list.
-     * @throws IllegalArgumentException - if some aspect of the specified element prevents it from being added to this lis
-     * @throws IllegalStateException - if neither next nor previous have been called, or remove or add have been called after the last call to next or previous
+     * @exception UnsupportedOperationException - if the set operation is not supported by this list iterator
+     * @exception ClassCastException - if the class of the specified element prevents it from being added to this list.
+     * @exception IllegalArgumentException - if some aspect of the specified element prevents it from being added to this lis
+     * @exception IllegalStateException - if neither next nor previous have been called, or remove or add have been called after the last call to next or previous
      */
     public void set(Object o);
+
+    /**
+     * Returns true if the iteration has more elements. (In other words, returns true if next would return an element rather than throwing an exception.)
+     * @return true if iterator has more elements
+     */
+    public boolean hasNext();
+
+    /**
+     * Return the next element in the iteration
+     * @return the next element in the iteration
+     * @exception NoSuchElementException if the iteration has no more elements
+     */
+    public Object next();
+
+    /**
+     * Removes from the underlying collection the last element returned by the iterator (optional operation).
+     * This method can be called only once per call to next or previous.
+     * The behavior of an iterator is unspecified if the underlying collection is modified while the iteration is in progress in any way other than by calling this method.
+     * @exception UnsupportedOperationException - if the remove operation is not supported by this Iterator.
+     * @exception IllegalStateException - if the next method has not yet been called, or the remove method has already been called after the last call to the next method.
+     */
+    public void remove();
 }
