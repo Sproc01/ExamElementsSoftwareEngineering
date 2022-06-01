@@ -4,7 +4,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 /**
- * A class implementing interface HList and HCollection but does not support null elements
+ * A class implementing interface HList and HCollection but does not support null elements or duplicate elements
  * @author Michele Sprocatti
  */
 public class ListAdapter implements HList, HCollection
@@ -22,6 +22,8 @@ public class ListAdapter implements HList, HCollection
             throw new IndexOutOfBoundsException();
         if(element==null)
             throw new NullPointerException();
+        if(contains(element))
+            throw new IllegalArgumentException();
         v.insertElementAt(element, index);
     }
 
@@ -29,18 +31,36 @@ public class ListAdapter implements HList, HCollection
     {
         if(o==null)
             throw new NullPointerException();
+        if(contains(o))
+            return false;
         v.add(o);
         return true;
     }
 
     public boolean addAll(HCollection c)
     {
-        return false;
+        if(c==null)
+            throw new NullPointerException();
+        Object[] o=c.toArray();
+        for(int i=0; i<o.length; i++)
+            if(!add(o[i]))
+                return false;
+        return true;
     }
 
     public boolean addAll(int index, HCollection c)
     {
-        return false;
+        if(c==null)
+            throw new NullPointerException();
+        if(index<0 || index>size())
+            throw new IndexOutOfBoundsException();
+        Object[] o=c.toArray();
+        for(int i=0; i<o.length; i++)
+        {
+            add(index, o[i]);
+            index++;
+        }
+        return true;
     }
 
     public void clear()
@@ -57,7 +77,13 @@ public class ListAdapter implements HList, HCollection
 
     public boolean containsAll(HCollection c)
     {
-        return false;
+        if(c==null)
+            throw new NullPointerException();
+        Object[] o=c.toArray();
+        for(int i=0;i<o.length;i++)
+            if(!contains(o[i]))
+                return false;
+        return true;
     }
 
     public boolean equals(Object o)
@@ -96,7 +122,7 @@ public class ListAdapter implements HList, HCollection
     
     public HIterator iterator()
     {
-        return null;
+        return new IteratorAdapter(this);
     }
 
     public int lastIndexOf(Object o)
@@ -108,12 +134,14 @@ public class ListAdapter implements HList, HCollection
 
     public HListIterator listIterator()
     {
-        return null;
+        return new IteratorAdapter(this);
     }
 
     public HListIterator listIterator(int index)
     {
-        return null;
+        if(index<0 || index>size())
+            throw new IndexOutOfBoundsException();
+        return new IteratorAdapter(this, index);
     }
     
     public Object remove(int index)
@@ -134,12 +162,34 @@ public class ListAdapter implements HList, HCollection
 
     public boolean removeAll(HCollection c)
     {
-        return false;
+        boolean res=false;
+        if(c==null)
+            throw new NullPointerException();
+        Object[] o=c.toArray();
+        for(int i=0; i<o.length; i++)
+            if(o[i]==null)
+                throw new NullPointerException();
+            else
+            {
+                res=true;
+                remove(o[i]);
+            }
+        return res;
     }
     
     public boolean retainAll(HCollection c)
     {
-        return false;
+        boolean res=false;
+        if(c==null)
+            throw new NullPointerException();
+        Object[] o=toArray();
+        for(int i=0; i<o.length; i++)
+            if(!c.contains(o[i]))
+            { 
+               remove(o[i]);
+               res=true;
+            }
+        return res;
     }
 
     public Object set(int index,Object element)
@@ -160,7 +210,12 @@ public class ListAdapter implements HList, HCollection
 
     public HList subList(int fromIndex, int toIndex)
     {
-        return null;
+        if(fromIndex < 0 || toIndex > size() || fromIndex > toIndex)
+            throw new IndexOutOfBoundsException();
+        ListAdapter l = new ListAdapter();
+        for(int i=fromIndex; i<toIndex; i++)
+            l.add(get(i));
+        return l;
     }
 
     public Object[] toArray()
