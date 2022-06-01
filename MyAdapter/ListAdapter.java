@@ -4,7 +4,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 /**
- * A class implementing interface HList and HCollection but does not support null elements or duplicate elements
+ * A class implementing interface HList and HCollection but does not support null elements
  * @author Michele Sprocatti
  */
 public class ListAdapter implements HList, HCollection
@@ -22,8 +22,8 @@ public class ListAdapter implements HList, HCollection
             throw new IndexOutOfBoundsException();
         if(element==null)
             throw new NullPointerException();
-        if(contains(element))
-            throw new IllegalArgumentException();
+        /*if(contains(element))
+            throw new IllegalArgumentException();*/
         v.insertElementAt(element, index);
     }
 
@@ -31,8 +31,8 @@ public class ListAdapter implements HList, HCollection
     {
         if(o==null)
             throw new NullPointerException();
-        if(contains(o))
-            return false;
+        /*if(contains(o))
+            return false;*/
         v.add(o);
         return true;
     }

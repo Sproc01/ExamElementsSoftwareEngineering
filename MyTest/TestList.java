@@ -9,7 +9,7 @@ import org.junit.*;
 
 public class TestList
 {
-    static String[] argv = {"pippo", "qui", "pluto", "paperino", "ciao", "ciccio"};
+    static String[] argv = {"pippo", "qui", "pluto", "paperino", "qui", "ciccio"};
     HList l1 = null;
     HList l2 = null;
     HListIterator li = null;
