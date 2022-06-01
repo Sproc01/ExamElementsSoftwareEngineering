@@ -10,32 +10,37 @@ import org.junit.*;
 public class TestList
 {
     @BeforeClass
-    public static void setUpBeforeClass(){
+    public static void setUpBeforeClass()
+    {
         System.out.println("Testing list");
     }
 
     @Test
-    public void testInitialize(){
+    public void testInitialize()
+    {
         HList list = new HListClass();
         assertNotNull(list);
     }
 
     @Test
-    public void testAdd(){
+    public void testAdd()
+    {
         HList list = new HListClass();
         list.add(0,3);
         assertEquals(3, list.get(0));
     }
 
     @Test
-    public void testAdd2(){
+    public void testAdd2()
+    {
         HList list = new HListClass();
         list.add(3);
         assertEquals(3, list.get(0));
     }
 
     @Test
-    public void TestAdd3(){
+    public void TestAdd3()
+    {
         HList list = new HListClass();
         list.add(0,3);
         list.add(1,4);
@@ -43,7 +48,8 @@ public class TestList
     }
 
     @Test
-    public void TestAdd4(){
+    public void TestAdd4()
+    {
         HList list = new HListClass();
         list.add(3);
         list.add(4);
@@ -53,7 +59,8 @@ public class TestList
     }
 
     @Test
-    public void testClear(){
+    public void testClear()
+    {
         HList list = new HListClass();
         list.add(3);
         list.add(4);
@@ -62,7 +69,8 @@ public class TestList
     }
 
     @Test
-    public void testContains(){
+    public void testContains()
+    {
         HList list = new HListClass();
         list.add(3);
         list.add(4);
@@ -72,7 +80,8 @@ public class TestList
     }
 
     @Test
-    public void TestRemove1(){
+    public void TestRemove1()
+    {
         HList list = new HListClass();
         list.add("Pippo");
         list.add("pluto");
@@ -83,7 +92,8 @@ public class TestList
     }
 
     @Test
-    public void TestRemove2(){
+    public void TestRemove2()
+    {
         HList list = new HListClass();
         list.add("Pippo");
         list.add("pluto");
@@ -94,7 +104,8 @@ public class TestList
     }
 
     @Test
-    public void TestSubList(){
+    public void TestSubList()
+    {
         HList list = new HListClass();
         list.add("Pippo");
         list.add("pluto");
@@ -106,7 +117,8 @@ public class TestList
     }
 
     @Test
-    public void TestIterator(){
+    public void TestIterator()
+    {
         HList list = new HListClass();
         list.add("Pippo");
         list.add("pluto");
@@ -121,7 +133,8 @@ public class TestList
     }
 
     @Test
-    public void TestListIterator(){
+    public void TestListIterator()
+    {
         HList list = new HListClass();
         list.add("Pippo");
         list.add("pluto");
@@ -276,7 +289,8 @@ public class TestList
     }
 
     @AfterClass
-    public static void AfterClass(){
+    public static void AfterClass()
+    {
         System.out.println("Testing list done");
     }
 }
