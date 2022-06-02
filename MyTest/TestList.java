@@ -9,6 +9,34 @@ import org.junit.*;
 
 /**
  * Test class for the ListAdapter class
+ * <br> <br>
+ * Summary: In this test suite we test all the functions of the ListAdapter:
+ * Sometime single function can be tested, sometimes more than one function togheter.
+ * <br><br>
+ * Design: The test suite is design to test the functions of the ListAdapter class using 4 different fields:
+ * two different lists, one iterator and an array of string for testng. It is design to the run every test with an empty list so there are no 
+ * interaction between tests.
+ * <br> <br>
+ * Description: The listAdapter is a class that implements the HList and HCollection interfaces, in this test suite we
+ * test all the functions. We use string as element type.
+ * <br> <br>
+ * Precondition: ...
+ * <br> <br>
+ * Postcondition: ....
+ * <br> <br>
+ * Test cases: In this test suite there are various test cases: Adding and removing elements given the index or the element, using HIterator and HListIterator to 
+ * visit the element of the list, test subList and his use, testing size(), clear() methods, test every search method(contains, indexOf, lastIndexOf),
+ * <br> <br>
+ * Execution records: If every condition in every test give positive result the test suite will be executed corrected and these results are considered Execution records.
+ * <br> <br>
+ * Execution variables:
+ * <br> HList l1: list use for the majority of the test
+ * <br> HList l2: list use for functions that use two lists(if more needed we instatiate others).
+ * <br> HListIterator li: ListIterator use for testing his functions
+ * <br> String[] array: elements use for testing
+ * @version JUnit 4.13
+ * @version Harmcrest: 1.3
+ * @version JVM from JME CLDC 1.1
  * @author Michele Sprocatti
  */
 public class TestList
@@ -18,209 +46,276 @@ public class TestList
     HList l2 = null;
     HListIterator li = null;
 
+    /**
+     * Before the test suite this will inform the user that the test suite is starting
+     */
     @BeforeClass
     public static void setUpBeforeClass()
     {
         System.out.println("Testing list");
     }
 
+    /**
+     * This method provide the setup of the fields before every test that will be executed
+     */
     @Before
     public void setup()
     {
         l1 = new ListAdapter();
         l2 = new ListAdapter();
     }
+
+    /**
+     * 
+     */
     @Test
     public void testInitialize()
     {assertNotNull(l1);}
 
+    /**
+     * 
+     */
     @Test
     public void testAdd()
     {
-        l1.add(0,3);
-        assertEquals(3, l1.get(0));
+        l1.add(0,argv[0]);
+        assertEquals("pippo", l1.get(0));
+        l1.add(1,argv[1]);
+        assertEquals("qui", l1.get(1));
+        l1.add(2,argv[2]);
+        assertEquals("pluto", l1.get(2));
+        l1.add(argv[3]);
+        assertEquals("paperino", l1.get(3));
     }
 
+    /**
+     * 
+     */
     @Test
     public void testClear()
     {
-        l1.add(3);
-        l1.add(4);
+        l1.add(argv[0]);
+        l1.add(argv[1]);
+        l1.add(argv[2]);
         l1.clear();
         assertEquals(0, l1.size());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testContains()
     {
-        l1.add(3);
-        l1.add(4);
-        l1.add(5);
-        l1.add(1);
-        assertEquals(true, l1.contains(3));
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        assertEquals(true, l1.contains(argv[0]));
+        assertEquals(true, l1.contains(argv[1]));
+        assertEquals(true, l1.contains(argv[2]));
+        assertEquals(true, l1.contains(argv[3]));
+        assertEquals(argv.length, l1.size());
     }
 
+    /**
+     * 
+     */
     @Test
     public void TestRemove()
     {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
-        l1.remove("Mondo");
-        assertEquals(false, l1.contains("Mondo"));
+        l1.add(argv[1]);
+        l1.add(argv[0]);
+        l1.add(argv[2]);
+        l1.add(argv[3]);
+        l1.remove(argv[3]);
+        assertEquals(false, l1.contains(argv[3]));
+        assertEquals(3, l1.size());
+        l1.remove(argv[1]);
+        assertEquals(false, l1.contains(argv[1]));
+        assertEquals(2, l1.size());
+        l1.remove(argv[2]);
+        assertEquals(false, l1.contains(argv[2]));
+        assertEquals(1, l1.size());
     }
 
-    @Ignore @Test
-    public void TestSubList()
-    {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
-        l2=l1.subList(1, 3);
-        assertEquals(2, l2.size());
-        assertArrayEquals(new Object[]{"pluto","Ciao"}, l2.toArray());
-    }
-
+    /**
+     * 
+     */
     @Test
     public void TestIterator()
     {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
         HIterator iterator = l1.iterator();
-        assertEquals("Pippo", iterator.next());
-        assertEquals("pluto", iterator.next());
-        assertEquals("Ciao", iterator.next());
-        assertEquals("Mondo", iterator.next());
+        assertEquals(argv[0], iterator.next());
+        assertEquals(argv[1], iterator.next());
+        assertEquals(argv[2], iterator.next());
+        assertEquals(argv[3], iterator.next());
+        assertEquals(argv[4], iterator.next());
+        assertEquals(argv[5], iterator.next());
         assertEquals(false, iterator.hasNext());
     }
 
+    /**
+     * 
+     */
     @Test
     public void TestListIterator()
     {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
         li= l1.listIterator();
-        assertEquals("Pippo", li.next());
-        assertEquals("pluto", li.next());
-        assertEquals("Ciao", li.next());
-        assertEquals("Mondo", li.next());
+        assertEquals(argv[0], li.next());
+        assertEquals(argv[1], li.next());
+        assertEquals(argv[2], li.next());
+        assertEquals(argv[3], li.next());
+        assertEquals(argv[4], li.next());
+        assertEquals(argv[5], li.next());
+        assertEquals(false, li.hasNext());
         assertEquals(true, li.hasPrevious());
-        assertEquals("Mondo", li.previous());
-        assertEquals("Ciao", li.previous());
-        assertEquals("pluto", li.previous());
-        assertEquals("Pippo", li.previous());
+        assertEquals(argv[5], li.previous());
+        assertEquals(argv[4], li.previous());
+        assertEquals(argv[3], li.previous());
+        assertEquals(argv[2], li.previous());
+        assertEquals(argv[1], li.previous());
+        assertEquals(argv[0], li.previous());
         assertEquals(false, li.hasPrevious());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testIsEmpty()
     {
         assertEquals(true, l1.isEmpty());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testContainsAll()
     {
-
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
-
-        l2.add("Pippo");
-        l2.add("pluto");
-        l2.add("Ciao");
-        l2.add("Mondo");
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        l2.add(argv[0]);
+        l2.add(argv[1]);
+        l2.add(argv[2]);
         assertEquals(true, l1.containsAll(l2));
     }
 
+    /**
+     * 
+     */
     @Test
     public void testAddAll()
     {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
         l2.add("Luca");
         l2.add("Giovanni");
         l2.add("Marco");
         l2.add("Matteo");
         l1.addAll(l2);
-        assertEquals(8, l1.size());
-        assertArrayEquals(new Object[]{"Pippo","pluto","Ciao","Mondo","Luca","Giovanni","Marco","Matteo"}, l1.toArray());
+        assertEquals(10, l1.size());
+        assertArrayEquals(new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio","Luca","Giovanni","Marco","Matteo"}, l1.toArray());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testRetainAll()
     {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
-
-        l2.add("Pippo");
-        l2.add("pluto");
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        l1.add("Luca");
+        l1.add("Giovanni");
+        l1.add("Marco");
+        l1.add("Matteo");
+        for(int i=0;i<argv.length;i++)
+        {
+            l2.add(argv[i]);
+        }
         assertEquals(true, l1.retainAll(l2));
-        assertArrayEquals(new Object[]{"Pippo","pluto"}, l1.toArray());
+        assertArrayEquals(argv, l1.toArray());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testIndexOf()
     {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
-        assertEquals(0, l1.indexOf("Pippo"));
-        assertEquals(1, l1.indexOf("pluto"));
-        assertEquals(2, l1.indexOf("Ciao"));
-        assertEquals(3, l1.indexOf("Mondo"));
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        assertEquals(0, l1.indexOf("pippo"));
+        assertEquals(2, l1.indexOf("pluto"));
+        assertEquals(1, l1.indexOf("qui"));
+        assertEquals(-1, l1.indexOf("Mondo"));
     }
 
+    /**
+     * 
+     */
     @Test
     public void testLastIndexOf()
     {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
-        assertEquals(0, l1.lastIndexOf("Pippo"));
-        assertEquals(1, l1.lastIndexOf("pluto"));
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        assertEquals(0, l1.lastIndexOf("pippo"));
+        assertEquals(2, l1.lastIndexOf("pluto"));
+        assertEquals(4, l1.lastIndexOf("qui"));
+        assertEquals(-1, l1.lastIndexOf("Mondo"));
     }
 
+    /**
+     * 
+     */
     @Test
     public void testRemoveAll()
     {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
-        HList l2=new ListAdapter();
-        l2.add("Pippo");
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        l2.add("pippo");
         l2.add("pluto");
         l1.removeAll(l2);
-        assertEquals(2, l1.size());
-        assertArrayEquals(new Object[]{"Ciao","Mondo"}, l1.toArray());
+        assertEquals(4, l1.size());
+        assertArrayEquals(new Object[]{"qui", "paperino", "qui", "ciccio"}, l1.toArray());
     }
 
+    /**
+     * 
+     */
     @Test
     public void testEquals()
     {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
-
-        l2.add("Pippo");
-        l2.add("pluto");
-        l2.add("Ciao");
-        l2.add("Mondo");
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        for(int i=0;i<argv.length;i++)
+        {
+            l2.add(argv[i]);
+        }
 
         HList l3=new ListAdapter();
         l3.addAll(l2);
@@ -229,24 +324,27 @@ public class TestList
         assertEquals(true, l1.equals(l2));
     }
 
+    /**
+     * 
+     */
     @Test
     public void testHashCode()
     {
-        l1.add("Pippo");
-        l1.add("pluto");
-        l1.add("Ciao");
-        l1.add("Mondo");
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        for(int i=0;i<argv.length;i++)
+        {
+            l2.add(argv[i]);
+        }
 
-        l2.add("Pippo");
-        l2.add("pluto");
-        l2.add("Ciao");
-        l2.add("Mondo");
         assertEquals(l2.hashCode(), l1.hashCode());
     }
 
     //#region test esempi
 
-    @Test
+    @Ignore @Test
 	public void testBacking()
 	{
 		System.out.println("TestBacking");
@@ -295,7 +393,7 @@ public class TestList
 
 	}
     
-    @Test
+    @Ignore @Test
 	public void testRecursiveSublist()
 	{
 		System.out.println("TestRecursive SubListing");
@@ -423,6 +521,9 @@ public class TestList
 
     //#endregion
 
+    /**
+     * After the test suite this will inform the user that the tests have finished.
+     */
     @AfterClass
     public static void AfterClass()
     {
