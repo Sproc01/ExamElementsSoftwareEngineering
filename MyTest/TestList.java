@@ -74,16 +74,26 @@ public class TestList
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
-     * Post-Condition: The listAdapter is not null.
+     * Post-Condition: The constructor return a non null element.
      * <br><br>
-     * Expected Results: The constructor return a non null element
+     * Expected Results: The listAdapter is not null.
      */
     @Test
     public void testInitialize()
     {assertNotNull(l1);}
 
     /**
-     * 
+     * Test case summary: test that the add method and get method are correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test the add method and get method of the listAdapter 4 times
+     * <br> <br>
+     * Test Description: Assertion that verified that all elements are correctly added to the list.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The listAdapter contains all the elements added.
+     * <br><br>
+     * Expected Results: The listAdapter contains all the elements added.
      */
     @Test
     public void testAdd()
@@ -99,7 +109,17 @@ public class TestList
     }
 
     /**
-     * 
+     * Test case summary: test that the clear method and isEmpty method are correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then clear the list
+     * <br> <br>
+     * Test Description: Assertion that verified that the list is empty and the size is 0.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The listAdapter is empty and the size is 0.
+     * <br><br>
+     * Expected Results: The listAdapter is empty.
      */
     @Test
     public void testClear()
@@ -109,6 +129,7 @@ public class TestList
         l1.add(argv[2]);
         l1.clear();
         assertEquals(0, l1.size());
+        assertEquals(true, l1.isEmpty());
     }
 
     /**

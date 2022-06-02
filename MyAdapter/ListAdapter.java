@@ -346,11 +346,13 @@ public class ListAdapter implements HList, HCollection
     }
 
     /**
-     * Returns the number of elements in this list.
+     * Returns the number of elements in this list. If there are more elements than Integer.MAX_VALUE, returns Integer.MAX_VALUE.
      * @return the number of elements in this list
      */
     public int size()
     {
+        if(v.size<0)
+            return Integer.MAX_VALUE;
         return v.size();
     }
 
