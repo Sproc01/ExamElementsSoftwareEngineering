@@ -363,7 +363,7 @@ public class ListAdapter implements HList, HCollection
      * Any operation that expects a list can be used as a range operation by passing a subList view instead of a whole list. 
      * For example, the following idiom removes a range of elements from a list:
      * list.subList(from, to).clear(); Similar idioms may be constructed for indexOf and lastIndexOf, and all of the algorithms in the Collections class can be applied to a subList. 
-     * Structural changes to the list (adding and removing elements) that are not performed through the returned list will affect the subList object.
+     * Structural changes to the list (adding and removing elements) that are not performed through the returned list will have an undefined effect.
      * @param fromIndex index of the first element to be copied
      * @param toIndex index after the last element to be copied
      * @return a HList containing the elements in the specified range from this list

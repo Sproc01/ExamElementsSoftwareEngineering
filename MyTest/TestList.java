@@ -7,6 +7,10 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.*;
 
+/**
+ * Test class for the ListAdapter class
+ * @author Michele Sprocatti
+ */
 public class TestList
 {
     static String[] argv = {"pippo", "qui", "pluto", "paperino", "qui", "ciccio"};
@@ -67,7 +71,7 @@ public class TestList
         assertEquals(false, l1.contains("Mondo"));
     }
 
-    @Test
+    @Ignore @Test
     public void TestSubList()
     {
         l1.add("Pippo");
@@ -242,7 +246,7 @@ public class TestList
 
     //#region test esempi
 
-    @Ignore @Test
+    @Test
 	public void testBacking()
 	{
 		System.out.println("TestBacking");
@@ -290,7 +294,8 @@ public class TestList
 		assertEquals("\n*** sublist is NOT backed correctly ***\n", dl1, (dl0 - dsl0));
 
 	}
-    @Ignore @Test
+    
+    @Test
 	public void testRecursiveSublist()
 	{
 		System.out.println("TestRecursive SubListing");

@@ -6,6 +6,7 @@ import java.util.*;
 import org.junit.runner.notification.Failure;
 
 /**
+ * Test running class for the ListAdapter class
  * @author Michele Sprocatti
  */
 public class TestRunner
