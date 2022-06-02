@@ -66,7 +66,17 @@ public class TestList
     }
 
     /**
-     * 
+     * Test case summary: test that the constructor of the listAdapter is working correctly.
+     * <br><br>
+     * Test Case Design: The test case is designed to test the constructor of the listAdapter.
+     * <br> <br>
+     * Test Description: Assertion that verified that the listAdapter is not null.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The listAdapter is not null.
+     * <br><br>
+     * Expected Results: The constructor return a non null element
      */
     @Test
     public void testInitialize()

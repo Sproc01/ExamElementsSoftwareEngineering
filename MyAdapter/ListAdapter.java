@@ -14,7 +14,7 @@ public class ListAdapter implements HList, HCollection
     boolean father;
 
     /**
-     * Create a new list
+     * Create a new empty list
      */
     public ListAdapter()
     {
