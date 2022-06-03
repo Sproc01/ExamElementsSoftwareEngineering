@@ -8,19 +8,13 @@ import java.util.Enumeration;
  */
 public class ListAdapter implements HList, HCollection
 {
-    Vector v;
-    int fromIndex,toIndex;
-    boolean father;
-
+    private Vector v;
     /**
      * Create a new empty list
      */
     public ListAdapter()
     {
         v = new Vector();
-        father=false;
-        fromIndex=0;
-        toIndex=0;
     }
 
     /**
@@ -29,9 +23,6 @@ public class ListAdapter implements HList, HCollection
     public ListAdapter(HCollection c)
     {
         v = new Vector();
-        father=false;
-        fromIndex=0;
-        toIndex=0;
         addAll(c);
     }
     /**
@@ -46,7 +37,6 @@ public class ListAdapter implements HList, HCollection
         if(index<0 || index>size())
             throw new IndexOutOfBoundsException();
         v.insertElementAt(element, index);
-        toIndex++;
     }
 
     /**
@@ -59,7 +49,6 @@ public class ListAdapter implements HList, HCollection
     public boolean add(Object o)
     {
         v.addElement(o);
-        toIndex++;
         return true;
     }
 
@@ -113,7 +102,6 @@ public class ListAdapter implements HList, HCollection
     public void clear()
     {
         v.removeAllElements();
-        toIndex=0;
     }
 
     /**
@@ -272,7 +260,6 @@ public class ListAdapter implements HList, HCollection
             throw new IndexOutOfBoundsException();
         Object e=get(index);
         v.removeElementAt(index);
-        toIndex--;
         return e;
     }
 
@@ -284,10 +271,7 @@ public class ListAdapter implements HList, HCollection
      */
     public boolean remove(Object o)
     {
-        boolean e=v.removeElement(o);
-        if(e)
-            toIndex--;
-        return e;
+        return v.removeElement(o);
     }
 
     /**
@@ -371,7 +355,7 @@ public class ListAdapter implements HList, HCollection
      * Any operation that expects a list can be used as a range operation by passing a subList view instead of a whole list. 
      * For example, the following idiom removes a range of elements from a list:
      * list.subList(from, to).clear(); Similar idioms may be constructed for indexOf and lastIndexOf, and all of the algorithms in the Collections class can be applied to a subList. 
-     * Structural changes to the list (adding and removing elements) that are not performed through the returned list will have an undefined effect.
+     * Structural changes to the list (adding and removing elements) that are not performed through the returned list won't have effect on the subList.
      * @param fromIndex index of the first element to be copied
      * @param toIndex index after the last element to be copied
      * @return a HList containing the elements in the specified range from this list
@@ -381,10 +365,10 @@ public class ListAdapter implements HList, HCollection
     {
         if(fromIndex < 0 || toIndex > size() || fromIndex > toIndex)
             throw new IndexOutOfBoundsException();
-        this.fromIndex=fromIndex;
-        this.toIndex=toIndex;
-        father=true;
-        return this;
+        SubList subList=new SubList(this, fromIndex);
+        for(int i=fromIndex; i<toIndex; i++)
+            ((SubList)subList).hiddenAdd(get(i));
+        return subList;
     }
 
     /**
@@ -427,5 +411,137 @@ public class ListAdapter implements HList, HCollection
         for(int i=0; i<size(); i++)
             a[i]=v.elementAt(i);
         return a;
+    }
+
+    /**
+     * Internal class that it si used to generate the subList with his proprieties
+     */
+    private class SubList extends ListAdapter
+    {
+        private HList father;
+        private int fromIndex;
+
+        /**
+         * create a new subList
+         * @param l the list that represents the father of this subList
+         * @param fI the starting index for the subList in the father list
+         */
+        public SubList(HList l, int fI)
+        {
+            father=l;
+            fromIndex=fI;
+        }
+
+        /**
+         * method used to add the elements to the subList from the father list
+         * @param o
+         */
+        private void hiddenAdd(Object o)
+        {super.add(o);}
+        /**
+         * Inserts the specified element at the specified position in this list
+         * Shifts the element currently at that position (if any) and any subsequent elements to the right (adds one to their indices).
+         * Also it adds the element in the right position in the father list
+         * @param index index at which the specified element is to be inserted
+         * @param element element to be inserted
+         * @exception IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
+         */
+        public void add(int index, Object element)
+        {
+            super.add(index, element);
+            father.add(index+fromIndex, element);
+        }
+
+        /**
+         * Ensures that this list contains the specified element.
+         * Returns true if this list changed as a result of the call.
+         * Also it adds the element in the right position in the father list
+         * @param element element whose presence in this list is to be ensured
+         * @return true if this list changed as a result of the call
+         */
+        public boolean add(Object o)
+        {
+            super.add(o);
+            int i=lastIndexOf(o);
+            father.add(i+fromIndex,o);
+            return true;
+        }
+
+        /**
+         * Removes all of the elements from this list. 
+         * This list will be empty after this method returns unless it throws an exception.
+         * Remove the range of elements in this subList form the father list.
+         */
+        public void clear()
+        {
+            int sz=size();
+            for(int i=0; i<sz; i++)
+                father.remove(i+fromIndex); 
+            super.clear();
+        }
+        
+        /**
+         * Removes the element at the specified position in this list (optional operation). 
+         * Shifts any subsequent elements to the left (subtracts one from their indices). 
+         * Returns the element that was removed from the list.
+         * Remove the same element from the father list
+         * @param index the index of the element to be removed
+         * @return the element previously at the specified position
+         * @exception IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+         */
+        public Object remove(int index)
+        {
+            Object e=super.remove(index);
+            father.remove(index+fromIndex);
+            return e;
+        }
+
+        /**
+         * Removes the first occurrence of the specified element from this list, if it is present.
+         * Remove the same element from the father list.
+         * If this list does not contain the element, it is unchanged.
+         * @param o element to be removed from this list, if present
+         * @return true if this list changed as a result of the call
+         */
+        public boolean remove(Object o)
+        {
+            int i=indexOf(o);
+            if(i!=-1)
+                father.remove(i+fromIndex);
+            return super.remove(o);
+        }
+        
+        /**
+         * Removes from this list all of its elements that are not contained in the specified collection.
+         * If an element is contained in the specified collection but not in the list this method won't add it.
+         * Also it will do the same operation in the father list.
+         * @param c collection containing elements to be retained in this list, if present
+         * @return true if this list changed as a result of the call
+         * @exception NullPointerException if the specified collection is null
+         */
+        public boolean retainAll(HCollection c)
+        {
+            int sz=size();
+            for(int i=0; i<sz; i++)
+            {
+                if(!c.contains(get(i)))
+                    father.remove(i+fromIndex);
+            }
+            return super.retainAll(c);
+        }
+
+        /**
+         * Replaces the element at the specified position in this list with the specified element. Then this change is reported in the father list.
+         * @param index index of the element to replace
+         * @param element element to be stored at the specified position
+         * @return the element previously at the specified position
+         * @exception IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+         */
+        public Object set(int index,Object element)
+        {
+            Object e=super.set(index, element);
+            father.set(index+fromIndex, element);
+            return e;
+        }       
     }
 }

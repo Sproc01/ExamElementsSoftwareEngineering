@@ -5,6 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotEquals;
 import org.junit.*;
 
 /**
@@ -20,9 +21,9 @@ import org.junit.*;
  * Description: The listAdapter is a class that implements the HList and HCollection interfaces, in this test suite we
  * test all the functions. We use string as element type.
  * <br> <br>
- * Precondition: ...
+ * Precondition: All the method of the ListAdapter class must be implemented.
  * <br> <br>
- * Postcondition: ....
+ * Postcondition: Every test must be passed to consider the listAdapter class as correct.
  * <br> <br>
  * Test cases: In this test suite there are various test cases: Adding and removing elements given the index or the element, using HIterator and HListIterator to 
  * visit the element of the list, test subList and his use, testing size(), clear() methods, test every search method(contains, indexOf, lastIndexOf),
@@ -152,11 +153,13 @@ public class TestList
         {
             l1.add(argv[i]);
         }
+        l1.add(null);
         assertEquals(true, l1.contains(argv[0]));
         assertEquals(true, l1.contains(argv[1]));
         assertEquals(true, l1.contains(argv[2]));
         assertEquals(true, l1.contains(argv[3]));
-        assertEquals(argv.length, l1.size());
+        assertEquals(true, l1.contains(null));
+        assertEquals((argv.length+1), l1.size());
     }
 
      /**
@@ -184,6 +187,7 @@ public class TestList
         assertEquals(true, l1.contains(argv[3]));//there is the duplicate one
         assertEquals(4, l1.size());
         l1.remove(argv[1]);
+        l1.remove(null);
         assertEquals(false, l1.contains(argv[1]));
         assertEquals(3, l1.size());
         l1.remove(argv[2]);
@@ -332,6 +336,15 @@ public class TestList
     @Test
     public void testAddAll()
     {
+        try 
+        {
+            l1.addAll(null);
+            throw new Exception();
+        } catch (Exception e) 
+        {
+            assertEquals(NullPointerException.class, e.getClass());
+        }
+
         for(int i=0;i<argv.length;i++)
         {
             l1.add(argv[i]);
@@ -361,6 +374,15 @@ public class TestList
     @Test
     public void testRetainAll()
     {
+        try 
+        {
+            l1.retainAll(null);
+            throw new Exception();
+        } catch (Exception e) 
+        {
+            assertEquals(NullPointerException.class, e.getClass());
+        }
+
         for(int i=0;i<argv.length;i++)
         {
             l1.add(argv[i]);
@@ -445,6 +467,15 @@ public class TestList
     @Test
     public void testRemoveAll()
     {
+        try 
+        {
+            l1.removeAll(null);
+            throw new Exception();
+        } catch (Exception e) 
+        {
+            assertEquals(NullPointerException.class, e.getClass());
+        }
+
         for(int i=0;i<argv.length;i++)
         {
             l1.add(argv[i]);
@@ -486,6 +517,13 @@ public class TestList
 
         assertEquals(true, l3.equals(l2));
         assertEquals(true, l1.equals(l2));
+        
+        l3.clear();
+        for(int i=argv.length-1; i>=0; i--)
+        {
+            l3.add(argv[i]);
+        }
+        assertEquals(false, l1.equals(l3));
     }
 
      /**
@@ -514,6 +552,13 @@ public class TestList
         }
 
         assertEquals(l2.hashCode(), l1.hashCode());
+
+        l2.clear();
+        for(int i=argv.length-1; i>=0; i--)
+        {
+            l2.add(argv[i]);
+        }
+        assertNotEquals(l2.hashCode(), l1.hashCode());
     }
 
     //#region test esempi
@@ -549,16 +594,16 @@ public class TestList
 		assertEquals("\n*** list remove is NOT backed correctly ***\n", l2.size(), dsl0);
 
 
-		//iterate(l2.iterator());
+		iterate(l2.iterator());
 		System.out.println(l2 + " " + l2.size());
 
 		l2.clear();
 		dl1 = l1.size();
 		dsl1 = l2.size();
 		System.out.println(l1 + " " + l1.size());
-		//iterate(l1.iterator());
+		iterate(l1.iterator());
 		System.out.println(l2 + " " + l2.size());
-		//iterate(l2.iterator());
+		iterate(l2.iterator());
 
 		System.out.println(dl0 + " " + dl1 + " " + dsl0 + " " + dsl1);
 		assertEquals("\n*** sublist is NOT backed correctly ***\n", dsl0, (dl0/2));
@@ -567,7 +612,7 @@ public class TestList
 
 	}
     
-    @Ignore @Test
+    @Test
 	public void testRecursiveSublist()
 	{
 		System.out.println("TestRecursive SubListing");

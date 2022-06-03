@@ -158,10 +158,10 @@ public class ListTest {
         coll.add(1);
         coll.add(3);
         coll.add(4.5);
-        //coll.add(null);
+        coll.add(null);
         assertTrue(coll.contains(1));
         assertTrue(coll.contains(4.50));
-        //assertTrue(coll.contains(null));
+        assertTrue(coll.contains(null));
         assertFalse(coll.contains(2));
     }
 
@@ -332,8 +332,8 @@ public class ListTest {
         coll.add(3);
         assertEquals(3, coll.toArray()[0]);
 
-        //coll.add(null);
-        //assertNull(coll.toArray()[1]);
+        coll.add(null);
+        assertNull(coll.toArray()[1]);
     }
 
     /**
@@ -356,10 +356,10 @@ public class ListTest {
         coll.add(2);
         coll.add(3);
         coll.add(2);
-        //coll.add(null);
+        coll.add(null);
         assertFalse(coll.remove(1));
         assertTrue(coll.remove(2));
-       // assertTrue(coll.remove(null));
+        assertTrue(coll.remove(null));
         assertEquals(2, coll.size());
         assertArrayEquals(new Object[]{3, 2}, coll.toArray());
 
@@ -389,7 +389,7 @@ public class ListTest {
         coll.add(2);
         coll.add(3);
         coll.add(4);
-        //coll.add(null);
+        coll.add(null);
 
         HCollection testColl = new ListAdapter(coll);
 
@@ -398,7 +398,7 @@ public class ListTest {
         testColl.add(1);
         testColl.add(2);
         testColl.add(3);
-        //testColl.add(null);
+        testColl.add(null);
         assertTrue(coll.containsAll(testColl));
 
         testColl.add(5);
@@ -430,12 +430,12 @@ public class ListTest {
         testColl.add(1);
         testColl.add(2);
         testColl.add(3);
-        //coll.add(null);
+        coll.add(null);
 
         int collDim = coll.size();
         coll.addAll(testColl);
         assertTrue(coll.containsAll(testColl));
-        //assertTrue(coll.contains(null));
+        assertTrue(coll.contains(null));
         assertEquals(collDim + testColl.size(), coll.size());
     }
 
@@ -905,7 +905,7 @@ public class ListTest {
      * <br><br>Postconditions: the main list is not changed immediately after the method invocation. With indexes from zero to the value returned by size () the sublist has a size equal to the list
      * <br><br>Expected results: the sublist contains all the elements contained in the range [from, to)
      */
-    @Ignore @Test
+    @Test
     public void testSubList() {
         HList subList = listWithData.subList(2, 2);
         assertEquals(0, subList.size());

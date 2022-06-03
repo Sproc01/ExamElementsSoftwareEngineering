@@ -34,7 +34,8 @@ public class TestRunner
         {
             System.out.println(f.getMessage());
         }
-        System.out.println("Time used for testing: "+res.getRunTime()+" ms\n");*/ 
+        System.out.println("Time used for testing: "+res.getRunTime()+" ms\n");*/
+
         System.out.println("Testing...\n");
         Result res=JUnitCore.runClasses(TestList.class);
         System.out.println("Correct test: "+res.wasSuccessful());
