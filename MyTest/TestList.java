@@ -13,7 +13,7 @@ import org.junit.*;
 
 /**
  * Test class for the ListAdapter class
- * <br> <br>
+ * <br> <br> <br>
  * Summary: In this test suite we test all the functions of the ListAdapter:
  * Sometime single function can be tested, sometimes more than one function togheter.
  * <br><br>
@@ -41,6 +41,10 @@ import org.junit.*;
  * @version JUnit 4.13
  * @version Harmcrest: 1.3
  * @version JVM from JME CLDC 1.1
+ * @see myAdapter.HList
+ * @see myAdapter.HCollection
+ * @see myAdapter.HIterator
+ * @see myAdapter.HListIterator
  * @author Michele Sprocatti
  */
 public class TestList
@@ -761,6 +765,34 @@ public class TestList
 
     //#endregion
 
+    /**
+     * Test case summary: test that the toArray with parameters is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that the toArray(Object[]) return the correct array
+     * <br> <br>
+     * Test Description: Assertion that verified that the array returned is correct
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The array returned is correct
+     * <br><br>
+     * Expected Results: The array returned is correct
+     */
+    @Test
+    public void testToArrayWithParameters()
+    {
+        try
+        {
+            l1.toArray(null);
+            throw new Exception();
+        }catch(Exception e)
+        { assertEquals(NullPointerException.class, e.getClass());}
+        Object[] a=new Object[1];
+        for(int i=0;i<argv.length;i++)
+            l1.add(argv[i]);
+
+        assertArrayEquals(new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray(a));
+    }
     /**
      * After the test suite this will inform the user that the tests have finished.
      */
