@@ -5,6 +5,9 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
+
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.assertNotEquals;
 import org.junit.*;
 
@@ -253,6 +256,14 @@ public class TestList
         assertEquals(argv[4], li.next());
         assertEquals(argv[5], li.next());
         assertEquals(false, li.hasNext());
+        try{
+            li.next();
+            throw new Exception();
+        }
+        catch(Exception e)
+        {
+            assertEquals(NoSuchElementException.class, e.getClass());
+        }
         assertEquals(true, li.hasPrevious());
         assertEquals(argv[5], li.previous());
         assertEquals(argv[4], li.previous());
@@ -261,6 +272,14 @@ public class TestList
         assertEquals(argv[1], li.previous());
         assertEquals(argv[0], li.previous());
         assertEquals(false, li.hasPrevious());
+        try{
+            li.previous();
+            throw new Exception();
+        }
+        catch(Exception e)
+        {
+            assertEquals(NoSuchElementException.class, e.getClass());
+        }
     }
 
     /**
