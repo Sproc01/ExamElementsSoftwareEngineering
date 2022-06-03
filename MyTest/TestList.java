@@ -133,7 +133,17 @@ public class TestList
     }
 
     /**
-     * 
+     * Test case summary: test that the contains method is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then verify that they are in the list
+     * <br> <br>
+     * Test Description: Assertion that verified that the list contains all the elements added.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The listAdapter contains all the elements added.
+     * <br><br>
+     * Expected Results: The listAdapter contains all the elements added.
      */
     @Test
     public void testContains()
@@ -149,8 +159,18 @@ public class TestList
         assertEquals(argv.length, l1.size());
     }
 
-    /**
-     * 
+     /**
+     * Test case summary: test that the remove method is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then remove them one by one
+     * <br> <br>
+     * Test Description: Assertion that verified that the size of the list decrease after each remove.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The listAdapter does not contain all the elements removed.(if there are duplicates the presence of the copy is verified)
+     * <br><br>
+     * Expected Results: The listAdapter does not contain all the elements removed.
      */
     @Test
     public void TestRemove()
@@ -159,19 +179,30 @@ public class TestList
         l1.add(argv[0]);
         l1.add(argv[2]);
         l1.add(argv[3]);
+        l1.add(argv[3]);
         l1.remove(argv[3]);
-        assertEquals(false, l1.contains(argv[3]));
-        assertEquals(3, l1.size());
+        assertEquals(true, l1.contains(argv[3]));//there is the duplicate one
+        assertEquals(4, l1.size());
         l1.remove(argv[1]);
         assertEquals(false, l1.contains(argv[1]));
-        assertEquals(2, l1.size());
+        assertEquals(3, l1.size());
         l1.remove(argv[2]);
         assertEquals(false, l1.contains(argv[2]));
-        assertEquals(1, l1.size());
+        assertEquals(2, l1.size());
     }
 
     /**
-     * 
+     * Test case summary: test that the iterator is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then visit the list with the iterator. 
+     * <br> <br>
+     * Test Description: Assertion that verified that the iterator visit all the element and it stops at the end of the list.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The iterator visit all the elements
+     * <br><br>
+     * Expected Results: The iterator is correctly working
      */
     @Test
     public void TestIterator()
@@ -191,7 +222,17 @@ public class TestList
     }
 
     /**
-     * 
+     * Test case summary: test that the listIterator is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then visit the list with the listIterator. 
+     * <br> <br>
+     * Test Description: Assertion that verified that the listIterator visit all the element and it stops at the end of the list. Also it visit the element backwards and it stops at the beginning of the list.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The listIterator visit all the elements forward and backwards.
+     * <br><br>
+     * Expected Results: The listIterator is correctly working
      */
     @Test
     public void TestListIterator()
@@ -219,16 +260,46 @@ public class TestList
     }
 
     /**
-     * 
+     * Test case summary: test that the isEmpty method is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that after the constructor the list is empty and after adding some elements it is not empty, also after removing all the elements it is empty.
+     * <br> <br>
+     * Test Description: Assertion that verified that the isEmpty method return true if the list is empty and false if it is not.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The isEmpty method return true if the list is empty and false if it is not.
+     * <br><br>
+     * Expected Results: The isEmpty is correctly working
      */
     @Test
     public void testIsEmpty()
     {
         assertEquals(true, l1.isEmpty());
+        for(int i=0; i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        assertEquals(false, l1.isEmpty());
+        for(int i=0; i<argv.length;i++)
+        {
+            l1.remove(argv[i]);
+        }
+        assertEquals(true, l1.isEmpty());
     }
 
     /**
-     * 
+     * Test case summary: test that the containsAll method is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that after adding some elements to the list and then adding them again to another list, the containsAll method return true if the list contains all the elements of the other list and false if it does not.
+     * <br> <br>
+     * Test Description: Assertion that verified that the containsAll method return true if the list contains all the elements of the other list and false if it does not.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The containsAll method return true if the list contains all the elements of the other list and false if it does not.
+     * <br><br>
+     * Expected Results: The containsAll is correctly working
      */
     @Test
     public void testContainsAll()
@@ -241,10 +312,22 @@ public class TestList
         l2.add(argv[1]);
         l2.add(argv[2]);
         assertEquals(true, l1.containsAll(l2));
+        l2.add("test");
+        assertEquals(false, l1.containsAll(l2));
     }
 
     /**
-     * 
+     * Test case summary: test that the addAll, toArray methods are correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that after adding some elements to the list and then adding them again to another list, the addAll method add all the elements of the other list to the list.
+     * <br> <br>
+     * Test Description: Assertion that verified that the size of the list is increased by the number of elements of the other list and that il toArray method return the correct array.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The addAll method add all the elements of the specified list
+     * <br><br>
+     * Expected Results: The addAll, toArray are correctly working
      */
     @Test
     public void testAddAll()
@@ -263,7 +346,17 @@ public class TestList
     }
 
     /**
-     * 
+     * Test case summary: test that the retainAll, toArray methods are correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that after adding some elements to the list, then create a new list with a small group of the elements in the first list, then use the retainAll method to remove all the elements that are in the first list but not in the second.
+     * <br> <br>
+     * Test Description: Assertion that verified that the list contains only the element of the second list
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The retainAll method remove all the elements that are in the first list but not in the second.
+     * <br><br>
+     * Expected Results: The retainAll, toArray are correctly working
      */
     @Test
     public void testRetainAll()
@@ -285,7 +378,17 @@ public class TestList
     }
 
     /**
-     * 
+     * Test case summary: test that the indexOf method is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that the indexOf method return the correct index of the element(that is the index of the first occurrence of the element in the list).
+     * <br> <br>
+     * Test Description: Assertion that verified that the indexOf method return the correct index of the element.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The indexOf method return the correct index of the element.
+     * <br><br>
+     * Expected Results: The indexOf is correctly working
      */
     @Test
     public void testIndexOf()
@@ -301,7 +404,17 @@ public class TestList
     }
 
     /**
-     * 
+     * Test case summary: test that the lastIndexOf method is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that the lastIndexOf method return the correct index of the element(that is the index of the last occurrence of the element in the list).
+     * <br> <br>
+     * Test Description: Assertion that verified that the lastIndexOf method return the correct index of the element.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The lastIndexOf method return the correct index of the element.
+     * <br><br>
+     * Expected Results: The lastIndexOf is correctly working
      */
     @Test
     public void testLastIndexOf()
@@ -317,7 +430,17 @@ public class TestList
     }
 
     /**
-     * 
+     * Test case summary: test that the removeAll, toArray methods are correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that after adding some elements to the list, then create a new list with a small group of the elements in the first list, then use the removeAll method to remove all the elements that are in the second list from the first.
+     * <br> <br>
+     * Test Description: Assertion that verified that the list contains only the element that are not in the second list
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The removeAll method remove all the elements that are in the second list from the first
+     * <br><br>
+     * Expected Results: The removeAll, toArray are correctly working
      */
     @Test
     public void testRemoveAll()
@@ -334,7 +457,17 @@ public class TestList
     }
 
     /**
-     * 
+     * Test case summary: test that the equals method is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that after adding some elements to the list then create two new lists with th same elements in the first list. After that testing if they are equals.
+     * <br> <br>
+     * Test Description: Assertion that verified that the list is equal to the second and third list
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The three list are equals
+     * <br><br>
+     * Expected Results: The equals is correctly working
      */
     @Test
     public void testEquals()
@@ -355,8 +488,18 @@ public class TestList
         assertEquals(true, l1.equals(l2));
     }
 
-    /**
-     * 
+     /**
+     * Test case summary: test that the hashCode method is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that two lists with same elements have the same hascode.
+     * <br> <br>
+     * Test Description: Assertion that verified that the two list have the same hashcode
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The two list have the same hashcode
+     * <br><br>
+     * Expected Results: The hashCode is correctly working
      */
     @Test
     public void testHashCode()
@@ -375,7 +518,7 @@ public class TestList
 
     //#region test esempi
 
-    @Ignore @Test
+    @Test
 	public void testBacking()
 	{
 		System.out.println("TestBacking");
@@ -406,16 +549,16 @@ public class TestList
 		assertEquals("\n*** list remove is NOT backed correctly ***\n", l2.size(), dsl0);
 
 
-		iterate(l2.iterator());
+		//iterate(l2.iterator());
 		System.out.println(l2 + " " + l2.size());
 
 		l2.clear();
 		dl1 = l1.size();
 		dsl1 = l2.size();
 		System.out.println(l1 + " " + l1.size());
-		iterate(l1.iterator());
+		//iterate(l1.iterator());
 		System.out.println(l2 + " " + l2.size());
-		iterate(l2.iterator());
+		//iterate(l2.iterator());
 
 		System.out.println(dl0 + " " + dl1 + " " + dsl0 + " " + dsl1);
 		assertEquals("\n*** sublist is NOT backed correctly ***\n", dsl0, (dl0/2));
