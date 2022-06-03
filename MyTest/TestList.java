@@ -1,5 +1,5 @@
-package MyTest;
-import MyAdapter.*;
+package myTest;
+import myAdapter.*;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

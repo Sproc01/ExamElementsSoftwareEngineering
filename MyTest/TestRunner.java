@@ -1,6 +1,6 @@
-package MyTest;
+package myTest;
 
-import MyAdapter.*;
+import myAdapter.*;
 import org.junit.runner.*;
 import java.util.*;
 import org.junit.runner.notification.Failure;

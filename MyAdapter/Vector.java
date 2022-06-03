@@ -1,6 +1,5 @@
 package myAdapter;
 
-
 import java.util.Enumeration;
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package MyAdapter;
+package myAdapter;
 
 import java.util.Enumeration;
 import java.util.Vector;
@@ -41,6 +41,7 @@ public class ListAdapter implements HList, HCollection
         /*if(contains(element))
             throw new IllegalArgumentException();*/
         v.insertElementAt(element, index);
+        toIndex++;
     }
 
     /**
@@ -58,6 +59,7 @@ public class ListAdapter implements HList, HCollection
         /*if(contains(o))
             return false;*/
         v.add(o);
+        toIndex++;
         return true;
     }
 
@@ -111,6 +113,7 @@ public class ListAdapter implements HList, HCollection
     public void clear()
     {
         v.removeAllElements();
+        toIndex=0;
     }
 
     /**
@@ -201,7 +204,7 @@ public class ListAdapter implements HList, HCollection
      */
     public boolean isEmpty()
     {
-        return v.isEmpty();
+        return size()==0;
     }
     
     /**
@@ -258,10 +261,11 @@ public class ListAdapter implements HList, HCollection
      */
     public Object remove(int index)
     {
-        if(index<0 || index>=v.size())
+        if(index<0 || index>=size())
             throw new IndexOutOfBoundsException();
         Object e=get(index);
         v.removeElementAt(index);
+        toIndex--;
         return e;
     }
 
@@ -276,7 +280,10 @@ public class ListAdapter implements HList, HCollection
     {
         if(o==null)
             throw new NullPointerException();
-        return v.removeElement(o);
+        boolean e=v.removeElement(o);
+        if(e)
+            toIndex--;
+        return e;
     }
 
     /**
@@ -336,7 +343,7 @@ public class ListAdapter implements HList, HCollection
      */
     public Object set(int index,Object element)
     {
-        if(index<0 || index>=v.size())
+        if(index<0 || index>=size())
             throw new IndexOutOfBoundsException();
         if(element==null)
             throw new NullPointerException();
@@ -351,7 +358,7 @@ public class ListAdapter implements HList, HCollection
      */
     public int size()
     {
-        if(v.size<0)
+        if(v.size()<0)
             return Integer.MAX_VALUE;
         return v.size();
     }
@@ -388,8 +395,8 @@ public class ListAdapter implements HList, HCollection
      */
     public Object[] toArray()
     {
-        Object[] array = new Object[v.size()];
-        for(int i=0; i<v.size(); i++)
+        Object[] array = new Object[size()];
+        for(int i=0; i<size(); i++)
             array[i] = v.elementAt(i);
         return array;
     }
@@ -406,10 +413,12 @@ public class ListAdapter implements HList, HCollection
     {
         if(a==null)
             throw new NullPointerException();
-        if(a.length<v.size())
-            a = new Object[v.size()];
-        for(int i=0; i<v.size(); i++)
+        if(a.length<size())
+            a = new Object[size()];
+        for(int i=0; i<size(); i++)
             a[i]=v.elementAt(i);
+        if(a.length!=v.size())
+            a[size()]=null;
         return a;
     }
 }

@@ -1,4 +1,4 @@
-package MyAdapter;
+package myAdapter;
 
 import java.util.NoSuchElementException;
 
