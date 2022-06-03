@@ -95,6 +95,18 @@ public interface HList extends HCollection
      * @exception IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     Object remove(int index);
+
+    /**
+     * Replaces the element at the specified position in this list with the specified element (optional operation).
+     * @param index index of element to replace.
+     * @param element element to be stored at the specified position.
+     * @return the element previously at the specified position.
+     * @exception UnsupportedOperationException - if the set method is not supported by this list.
+     * @exception ClassCastException - if the class of the specified element prevents it from being added to this list.
+     * @exception NullPointerException - if the specified element is null and this list does not support null elements.
+     * @exception IllegalArgumentException - if some aspect of the specified element prevents it from being added to this list.
+     * @exception IndexOutOfBoundsException - if the index is out of range (index < 0 || index >= size()).
+     */ 
     Object set(int index,Object element);
 
     /**
@@ -124,6 +136,7 @@ public interface HList extends HCollection
      * @exception ClassCastException class of the specified element prevents it from being addede to this collection
      * @exception NullPointerException if the specified element is null and this collection does not support null elements
      * @exception IllegalArgumentException some aspect of the specified element prevents it from being added to this collection
+     * @see {@link HCollection#add(Object)}
      */
     public boolean add(Object o);
 
@@ -136,12 +149,14 @@ public interface HList extends HCollection
      * @exception UnsupportedOperationException if this collection does not support th addAll method
      * @exception NullPointerException if the specified collection contains one or more  null elements and this collection does not support null elements, or if the specified collection is null
      * @exception IllegalArgumentException some aspect of an element of the specified collection prevents it from being added to this collection
+     * @see {@link HCollection#addAll(Collection)}
      */
     public boolean addAll(HCollection c);
 
     /**
      * Removes all of the elements from this collection (optional operation). This collection will be empty after this method returns unless it throws an exception.
      * @exception UnsupportedOperationException if the clear method is not supported by this collection
+     * @see {@link HCollection#clear()}
      */
     public void clear();
 
@@ -152,6 +167,7 @@ public interface HList extends HCollection
      * @return true if this collection contains the specified element
      * @exception ClassCastException if the type of the specified element is incompatible with this collection(optional)
      * @exception NullPointerException if the specified element is null and this collection does not permit null elements(optional)
+     * @see {@link HCollection#contains(Object)}
      */
     public boolean contains(Object o);
 
@@ -163,7 +179,7 @@ public interface HList extends HCollection
      * @exception ClassCastException if the types of one or more elements in the specified collection are incompatible with this collection(optional)
      * @exception NullPointerException if the specified collection contains one or more null elements and this collection does not support null elements(optional)
      * @exception NullPointerException if the specified collection is null
-     * @see {@link #contains(Object)}
+     * @see {@link HCollection#containsAll(HCollection)}
      */
     public boolean containsAll(HCollection c);
 
@@ -173,20 +189,21 @@ public interface HList extends HCollection
      * The general contract for the Object.equals method states that equals must be symmetric (in other words, a.equals(b) if and only if b.equals(a)). The contracts for List.equals and Set.equals state that lists are only equal to other lists, and sets to other sets. Thus, a custom equals method for a collection class that implements neither the List nor Set interface must return false when this collection is compared to any list or set. (By the same logic, it is not possible to write a class that correctly implements both the Set and List interfaces.)
      * @param o object to be compared for equality with this collection
      * @return true if the specified object is equal to this collection
-     * @see {@link Object#equals(Object)}, {@link HList#equals(Object)}, {@link Set#equals(Object)}
+     * @see {@link Object#equals(Object)}, {@link HCollection#equals(Object)}
      */
     public boolean equals(Object o);
 
     /**Returns the hash code value for this collection. 
      * While the Collection interface adds no stipulations to the general contract for the Object.hashCode method, programmers should take note that any class that overrides the Object.equals method must also override the Object.hashCode method in order to satisfy the general contract for the Object.hashCodemethod. In particular, c1.equals(c2) implies that c1.hashCode()==c2.hashCode(). 
      * @return the hash code value for this collection
-     * @see {@link Object#hashCode()}, {@link HList#hashCode()}, {@link Set#hashCode()}
+     * @see {@link Object#hashCode()}, {@link HCollection#hashCode()}
      */
     public int hashCode();
 
     /**
      * Returns true if this collection contains no elements.
      * @return true if this collection contains no elements
+     * @see {@link HCollection#isEmpty()}
      */
     public boolean isEmpty();
 
@@ -194,6 +211,7 @@ public interface HList extends HCollection
      * Returns an iterator over the elements in this collection. 
      * There are no guarantees concerning the order in which the elements are returned (unless this collection is an instance of some class that provides a guarantee).
      * @return an iterator over the elements in this collection
+     * @see {@link HCollection#iterator()}
      */
     HIterator iterator();
 
@@ -204,6 +222,7 @@ public interface HList extends HCollection
      * @exception ClassCastException if the type of the specified element is incompatible with this collection(optional)
      * @exception NullPointerException if the specified element is null and this collection does not permit null elements(optional)
      * @exception UnsupportedOperationException remove is not supported by this collection
+     * @see {@link HCollection#remove(Object)}
      */
     public boolean remove(Object o);
 
@@ -215,7 +234,7 @@ public interface HList extends HCollection
      * @exception ClassCastException if the types of one or more elements in this collection are incompatible with the specified collection(optional)
      * @exception NullPointerException if the specified collection is null
      * @exception NullPointerException if this collection contains one or more null elements and the specified collection does not support null elements(optional)
-     * @see {@link #remove(Object)}
+     * @see {@link HCollection#removeAll(HCollection)}
      */
     public boolean removeAll(HCollection c);
 
@@ -227,7 +246,7 @@ public interface HList extends HCollection
      * @exception ClassCastException if the types of one or more elements in this collection are incompatible with the specified collection(optional)
      * @exception NullPointerException if the specified collection is null
      * @exception NullPointerException if this collection contains one or more null elements and the specified collection does not support null elements(optional)
-     * @see {@link #remove(Object)},{@link #contains(Object)}
+     * @see {@link HCollection#retainAll(HCollection)}
      */
     public boolean retainAll(HCollection c);
 
@@ -235,6 +254,7 @@ public interface HList extends HCollection
      * Returns the number of elements in this collection. 
      * If this collection contains more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE.
      * @return the number of elements in this collection
+     * @see {@link HCollection#size()}
      */
     public int size();
 
@@ -243,6 +263,7 @@ public interface HList extends HCollection
      * The returned array will be "safe" in that no references to it are maintained by this collection. (In other words, this method must allocate a new array even if this collection is backed by an array). The caller is thus free to modify the returned array.
      * This method acts as bridge between array-based and HCollection-based APIs.
      * @return an array containing all of the elements in this collection
+     * @see {@link HCollection#toArray()}
      */
     public Object[] toArray();
 
@@ -259,6 +280,7 @@ public interface HList extends HCollection
      * @return an array containing the elements of this collection
      * @exception ArrayStoreException if the runtime type of the specified array is not a supertype of the runtime type of every element in this collection
      * @exception NullPointerException if the specified array is null
-     */ 
+     * @see {@link HCollection#toArray(Object[])}
+     */
     public Object[] toArray(Object[] a);
 }

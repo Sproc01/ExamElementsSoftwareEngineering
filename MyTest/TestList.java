@@ -70,6 +70,8 @@ public class TestList
     }
 
     /**
+     * Test the constructor of the ListAdapter class
+     * <br> <br>
      * Test case summary: test that the constructor of the listAdapter is working correctly.
      * <br><br>
      * Test Case Design: The test case is designed to test the constructor of the listAdapter.

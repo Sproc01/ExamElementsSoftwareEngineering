@@ -1,8 +1,26 @@
 package myAdapter;
 /**
- * An iterator for lists that allows the programmer to traverse the list in either direction, modify the list during iteration, and obtain the iterator's current position in the list. 
- * A ListIterator has no current element; its cursor position always lies between the element that would be returned by a call to previous() and the element that would be returned by a call to next(). 
- * In a list of length n, there are n+1 valid index values, from 0 to n, inclusive.
+ *
+ * An iterator for lists that allows the programmer to traverse the list in
+ * either direction, modify the list during iteration, and obtain the iterator's
+ * current position in the list. A ListIterator has no current element;
+ * its <I>cursor position</I> always lies between the element that would be
+ * returned by a call to previous() and the element that would be
+ * returned by a call to next(). In a list of length n, there
+ * are n+1 valid index values, from 0 to n,
+ * inclusive.
+ *
+ * <PRE>
+ *
+ *          Element(0)   Element(1)   Element(2)   ... Element(n)
+ *        ^            ^            ^            ^               ^
+ * Index: 0            1            2            3               n+1
+ *
+ * </PRE>
+ * <P>
+ * Note that the {@link #remove} and {@link #set(Object)} methods are <i>not</i>
+ * defined in terms of the cursor position; they are defined to operate on the
+ * last element returned by a call to {@link #next} or {@link #previous()}.
  * @author Michele Sprocatti
  */
 public interface HListIterator extends HIterator
@@ -60,6 +78,7 @@ public interface HListIterator extends HIterator
     /**
      * Returns true if the iteration has more elements. (In other words, returns true if next would return an element rather than throwing an exception.)
      * @return true if iterator has more elements
+     * @see {@link HIterator#hasNext()}
      */
     public boolean hasNext();
 
@@ -67,6 +86,7 @@ public interface HListIterator extends HIterator
      * Return the next element in the iteration
      * @return the next element in the iteration
      * @exception NoSuchElementException if the iteration has no more elements
+     * @see {@link HIterator#next()}
      */
     public Object next();
 
@@ -76,6 +96,7 @@ public interface HListIterator extends HIterator
      * The behavior of an iterator is unspecified if the underlying collection is modified while the iteration is in progress in any way other than by calling this method.
      * @exception UnsupportedOperationException - if the remove operation is not supported by this Iterator.
      * @exception IllegalStateException - if the next method has not yet been called, or the remove method has already been called after the last call to the next method.
+     * @see {@link HIterator#remove()}
      */
     public void remove();
 }

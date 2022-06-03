@@ -31,6 +31,7 @@ public class ListAdapter implements HList, HCollection
      * @param index index at which the specified element is to be inserted
      * @param element element to be inserted
      * @exception IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
+     * @see {@link HList#add(int, Object)} 
      */
     public void add(int index, Object element)
     {
@@ -45,6 +46,7 @@ public class ListAdapter implements HList, HCollection
      * This class does not support null elements
      * @param element element whose presence in this list is to be ensured
      * @return true if this list changed as a result of the call
+     * @see {@link HList#add(Object)} 
      */
     public boolean add(Object o)
     {
@@ -58,6 +60,7 @@ public class ListAdapter implements HList, HCollection
      * This list does not support null elements
      * @param c collection containing elements to be inserted into this list
      * @exception NullPointerException if the specified collection is null
+     * @see {@link HList#addAll(HCollection)} 
      */
     public boolean addAll(HCollection c)
     {
@@ -79,6 +82,7 @@ public class ListAdapter implements HList, HCollection
      * @return true if this list changed as a result of the call
      * @exception IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
      * @exception NullPointerException if the specified collection is null
+     * @see {@link HList#addAll(int, HCollection)} 
      */
     public boolean addAll(int index, HCollection c)
     {
@@ -98,6 +102,7 @@ public class ListAdapter implements HList, HCollection
     /**
      * Removes all of the elements from this list. 
      * This list will be empty after this method returns unless it throws an exception.
+     * @see {@link HList#clear()} 
      */
     public void clear()
     {
@@ -110,6 +115,7 @@ public class ListAdapter implements HList, HCollection
      * @param element element whose presence in this list is to be tested
      * @return true if this list contains the specified element
      * @exception NullPointerException if the element is null
+     * @see {@link HList#contains(Object)} 
      */
     public boolean contains(Object o)
     {
@@ -121,6 +127,7 @@ public class ListAdapter implements HList, HCollection
      * @param c collection containing elements to be checked for containment in this list
      * @return true if this list contains all of the elements of the specified collection
      * @exception NullPointerException if the specified collection is null
+     * @see {@link HList#containsAll(HCollection)} 
      */
     public boolean containsAll(HCollection c)
     {
@@ -138,6 +145,7 @@ public class ListAdapter implements HList, HCollection
      * @param o object to be compared
      * @return true if the specified object is equal to this list
      * @exception NullPointerException if the specified object is null
+     * @see {@link HList#equals(Object)} 
      */
     public boolean equals(Object o)
     {
@@ -161,6 +169,7 @@ public class ListAdapter implements HList, HCollection
      * @param index index of the element to return
      * @return the element at the specified position in this list
      * @exception IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+     * @see {@link HList#get(int)} 
      */
     public Object get(int index)
     {
@@ -172,6 +181,7 @@ public class ListAdapter implements HList, HCollection
     /**
      * Override of the Object.hashCode method
      * @return the hash code value for this list
+     * @see {@link HList#hashCode()} 
      */
     public int hashCode()
     {
@@ -190,6 +200,7 @@ public class ListAdapter implements HList, HCollection
      * Returns the index in this list of the first occurrence of the specified element, or -1 if this list does not contain this element.
      * @param o element to be searched for
      * @return the index in this list of the first occurrence of the specified element, or -1 if this list does not contain this element
+     * @see {@link HList#indexOf(Object)} 
      */
     public int indexOf(Object o)
     {
@@ -198,7 +209,8 @@ public class ListAdapter implements HList, HCollection
 
     /**
      * Returns true if this list contains no elements.
-     * @return true if this list contains no elements
+     * @return true if this list contains no elements.
+     * @see {@link HList#isEmpty()} 
      */
     public boolean isEmpty()
     {
@@ -207,7 +219,8 @@ public class ListAdapter implements HList, HCollection
     
     /**
      * Returns an HIterator over the elements in this list in proper sequence.
-     * @return an HIterator over the elements in this list in proper sequence
+     * @return an HIterator over the elements in this list in proper sequence.
+     * @see {@link HList#iterator()} 
      */
     public HIterator iterator()
     {
@@ -217,7 +230,8 @@ public class ListAdapter implements HList, HCollection
     /**
      * Returns the index in this list of the last occurrence of the specified element, or -1 if this list does not contain this element.
      * @param o element to be searched for
-     * @return the index in this list of the last occurrence of the specified element, or -1 if this list does not contain this element
+     * @return the index in this list of the last occurrence of the specified element, or -1 if this list does not contain this element.
+     * @see {@link HList#lastIndexOf(Object)} 
      */
     public int lastIndexOf(Object o)
     {
@@ -226,7 +240,8 @@ public class ListAdapter implements HList, HCollection
 
     /**
      * Returns a HListIterator over the elements in this list in proper sequence.
-     * @return a HListIterator over the elements in this list in proper sequence
+     * @return a HListIterator over the elements in this list in proper sequence.
+     * @see {@link HList#listIterator()} 
      */
     public HListIterator listIterator()
     {
@@ -238,6 +253,7 @@ public class ListAdapter implements HList, HCollection
      * @param index index of the first element to be returned from the new HListIterator (by a call to next)
      * @return a HListIterator over the elements in this list in proper sequence, starting at the specified position in this list
      * @exception IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
+     * @see {@link HList#listIterator(int)} 
      */
     public HListIterator listIterator(int index)
     {
@@ -253,6 +269,7 @@ public class ListAdapter implements HList, HCollection
      * @param index the index of the element to be removed
      * @return the element previously at the specified position
      * @exception IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+     * @see {@link HList#remove(int)} 
      */
     public Object remove(int index)
     {
@@ -268,6 +285,7 @@ public class ListAdapter implements HList, HCollection
      * If this list does not contain the element, it is unchanged.
      * @param o element to be removed from this list, if present
      * @return true if this list changed as a result of the call
+     * @see {@link HList#remove(Object)} 
      */
     public boolean remove(Object o)
     {
@@ -281,6 +299,7 @@ public class ListAdapter implements HList, HCollection
      * @param c collection containing elements to be removed from this list
      * @return true if this list changed as a result of the call
      * @exception NullPointerException if the specified collection is null
+     * @see {@link HList#removeAll(Collection)} 
      */
     public boolean removeAll(HCollection c)
     {
@@ -302,6 +321,7 @@ public class ListAdapter implements HList, HCollection
      * @param c collection containing elements to be retained in this list, if present
      * @return true if this list changed as a result of the call
      * @exception NullPointerException if the specified collection is null
+     * @see {@link HList#retainAll(Collection)} 
      */
     public boolean retainAll(HCollection c)
     {
@@ -324,6 +344,7 @@ public class ListAdapter implements HList, HCollection
      * @param element element to be stored at the specified position
      * @return the element previously at the specified position
      * @exception IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+     * @see {@link HList#set(int, Object)} 
      */
     public Object set(int index,Object element)
     {
@@ -336,7 +357,8 @@ public class ListAdapter implements HList, HCollection
 
     /**
      * Returns the number of elements in this list. If there are more elements than Integer.MAX_VALUE, returns Integer.MAX_VALUE.
-     * @return the number of elements in this list
+     * @return the number of elements in this list.
+     * @see {@link HList#size()} 
      */
     public int size()
     {
@@ -360,6 +382,7 @@ public class ListAdapter implements HList, HCollection
      * @param toIndex index after the last element to be copied
      * @return a HList containing the elements in the specified range from this list
      * @exception IndexOutOfBoundsException if fromIndex is out of range (fromIndex < 0 || fromIndex >= size())
+     * @see {@link HList#subList(int, int)} 
      */
     public HList subList(int fromIndex, int toIndex)
     {
@@ -375,6 +398,7 @@ public class ListAdapter implements HList, HCollection
      * Returns an array containing all of the elements in this list.
      * The returned array will be "safe" in that no references to it are maintained by this list
      * @return an array containing all of the elements in this list
+     * @see {@link HList#toArray()} 
      */
     public Object[] toArray()
     {
@@ -396,6 +420,7 @@ public class ListAdapter implements HList, HCollection
      * Otherwise, a new array is allocated with the runtime type of the specified array and the size of this list.
      * @return an array containing all of the elements in this list
      * @throws NullPointerException if the array is null
+     * @see {@link HList#toArray(Object[])} 
      */
     public Object[] toArray(Object[] a)
     {
