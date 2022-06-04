@@ -14,15 +14,15 @@ import org.junit.*;
 /**
  * Test class for the ListAdapter class
  * <br> <br> <br>
- * Summary: In this test suite we test all the functions of the ListAdapter:
- * Sometime single function can be tested, sometimes more than one function togheter.
+ * Summary: This test suite tests all the functions of the ListAdapter:
+ * Sometime single function, sometimes some functions togheter.
  * <br><br>
  * Design: The test suite is design to test the functions of the ListAdapter class using 4 different fields:
- * two different lists, one iterator and an array of string for testng. It is design to the run every test with an empty list so there are no 
+ * two different lists, one iterator and an array of string for testng. It is design to run every test with an empty list so there are no 
  * interaction between tests.
  * <br> <br>
- * Description: The listAdapter is a class that implements the HList and HCollection interfaces, in this test suite we
- * test all the functions. We use string as element type.
+ * Description: Before every test there is an empty list so there are no interaction between tests. To test the function of the ListAdapter some element will be added, remove and visited.
+ * An HList is also an HCollection so it will test the correct function of the HCollection methods.
  * <br> <br>
  * Precondition: All the method of the ListAdapter class must be implemented.
  * <br> <br>
@@ -55,7 +55,7 @@ public class TestList
     HListIterator li = null;
 
     /**
-     * Before the test suite this will inform the user that the test suite is starting
+     * Before the test suite this will inform the user that the test suite is starting.
      */
     @BeforeClass
     public static void setUpBeforeClass()
@@ -64,7 +64,7 @@ public class TestList
     }
 
     /**
-     * This method provide the setup of the fields before every test that will be executed
+     * This method provide the setup of the fields before every test that will be executed.
      */
     @Before
     public void setup()
@@ -74,7 +74,7 @@ public class TestList
     }
 
     /**
-     * Test the constructor of the ListAdapter class
+     * Test the constructor of the ListAdapter class.
      * <br> <br>
      * Test case summary: test that the constructor of the listAdapter is working correctly.
      * <br><br>
@@ -95,9 +95,9 @@ public class TestList
     /**
      * Test case summary: test that the add method and get method are correctly working.
      * <br><br>
-     * Test Case Design: The test case is designed to test the add method and get method of the listAdapter 4 times
+     * Test Case Design: The test case is designed to test the add method and get method of the listAdapter.
      * <br> <br>
-     * Test Description: Assertion that verified that all elements are correctly added to the list.
+     * Test Description:We add some elements and then there is the assertion that verified that all elements are correctly added to the list.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
@@ -121,9 +121,9 @@ public class TestList
     /**
      * Test case summary: test that the clear method and isEmpty method are correctly working.
      * <br><br>
-     * Test Case Design: The test case is designed to add some elements then clear the list
+     * Test Case Design: The test case is designed to add some elements then clear the list.
      * <br> <br>
-     * Test Description: Assertion that verified that the list is empty and the size is 0.
+     * Test Description: It will add some elements than clear the list. After this there is the assertion that verified that the list is empty and the size is 0.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
@@ -145,9 +145,9 @@ public class TestList
     /**
      * Test case summary: test that the contains method is correctly working.
      * <br><br>
-     * Test Case Design: The test case is designed to add some elements then verify that they are in the list
+     * Test Case Design: The test case is designed to add some elements then verify that they are in the list.
      * <br> <br>
-     * Test Description: Assertion that verified that the list contains all the elements added.
+     * Test Description: It will add some elements and then it will verified that the list contains all the elements added.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
@@ -174,13 +174,13 @@ public class TestList
      /**
      * Test case summary: test that the remove method is correctly working.
      * <br><br>
-     * Test Case Design: The test case is designed to add some elements then remove them one by one
+     * Test Case Design: The test case is designed to add some elements then remove them one by one.
      * <br> <br>
-     * Test Description: Assertion that verified that the size of the list decrease after each remove.
+     * Test Description: It adds some elements and then remove some. After every remove the size is tested. This method also test that if there is a duplicate element the remove method remove the first occurence.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
-     * Post-Condition: The listAdapter does not contain all the elements removed.(if there are duplicates the presence of the copy is verified)
+     * Post-Condition: The listAdapter does not contain all the elements removed. There is one duplicate element and his presence is verified.
      * <br><br>
      * Expected Results: The listAdapter does not contain all the elements removed.
      */
@@ -209,13 +209,13 @@ public class TestList
      * <br><br>
      * Test Case Design: The test case is designed to add some elements then visit the list with the iterator. 
      * <br> <br>
-     * Test Description: Assertion that verified that the iterator visit all the element and it stops at the end of the list.
+     * Test Description: The list is visited with the iterator and the correct behaviour of the iterator t is tested.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
-     * Post-Condition: The iterator visit all the elements
+     * Post-Condition: The iterator visit all the elements.
      * <br><br>
-     * Expected Results: The iterator is correctly working
+     * Expected Results: The iterator is correctly working.
      */
     @Test
     public void TestIterator()
@@ -239,7 +239,8 @@ public class TestList
      * <br><br>
      * Test Case Design: The test case is designed to add some elements then visit the list with the listIterator. 
      * <br> <br>
-     * Test Description: Assertion that verified that the listIterator visit all the element and it stops at the end of the list. Also it visit the element backwards and it stops at the beginning of the list.
+     * Test Description: Assertions that verified that the listIterator visit all the element and it stops at the end of the list. Also it visit the element backwards and it stops at the beginning of the list.
+     * Also the throw of the NoSuchElementException is tested.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
@@ -293,7 +294,7 @@ public class TestList
      * <br><br>
      * Test Case Design: The test case is designed to test that after the constructor the list is empty and after adding some elements it is not empty, also after removing all the elements it is empty.
      * <br> <br>
-     * Test Description: Assertion that verified that the isEmpty method return true if the list is empty and false if it is not.
+     * Test Description: Assertion that verified that the isEmpty method return true if the list is empty and false if it is not. This test will be executed with an empty list and with a list with some element.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
@@ -320,15 +321,15 @@ public class TestList
     /**
      * Test case summary: test that the containsAll method is correctly working.
      * <br><br>
-     * Test Case Design: The test case is designed to test that after adding some elements to the list and then adding them again to another list, the containsAll method return true if the list contains all the elements of the other list and false if it does not.
+     * Test Case Design: The test case is designed to test that that the containsAll method return true if the list contains all the elements of the other list and false if it does not.
      * <br> <br>
-     * Test Description: Assertion that verified that the containsAll method return true if the list contains all the elements of the other list and false if it does not.
+     * Test Description: Assertion that verified that after adding some elements to the list and then adding them again to another list, the containsAll method return true if the list contains all the elements of the other list and false if it does not.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
      * Post-Condition: The containsAll method return true if the list contains all the elements of the other list and false if it does not.
      * <br><br>
-     * Expected Results: The containsAll is correctly working
+     * Expected Results: The containsAll is correctly working.
      */
     @Test
     public void testContainsAll()
@@ -348,15 +349,15 @@ public class TestList
     /**
      * Test case summary: test that the addAll, toArray methods are correctly working.
      * <br><br>
-     * Test Case Design: The test case is designed to test that after adding some elements to the list and then adding them again to another list, the addAll method add all the elements of the other list to the list.
+     * Test Case Design: The test case is designed to test that the size of the list is increased by the number of elements of the other list and that il toArray method return the correct array.
      * <br> <br>
-     * Test Description: Assertion that verified that the size of the list is increased by the number of elements of the other list and that il toArray method return the correct array.
+     * Test Description: After adding some elements to the list and then adding them again to another list, the addAll method is tested.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
-     * Post-Condition: The addAll method add all the elements of the specified list
+     * Post-Condition: The addAll method add all the elements of the specified list.
      * <br><br>
-     * Expected Results: The addAll, toArray are correctly working
+     * Expected Results: The addAll, toArray are correctly working.
      */
     @Test
     public void testAddAll()
@@ -386,15 +387,15 @@ public class TestList
     /**
      * Test case summary: test that the retainAll, toArray methods are correctly working.
      * <br><br>
-     * Test Case Design: The test case is designed to test that after adding some elements to the list, then create a new list with a small group of the elements in the first list, then use the retainAll method to remove all the elements that are in the first list but not in the second.
+     * Test Case Design: The test case is designed to test that the list contains only the element of the second list.
      * <br> <br>
-     * Test Description: Assertion that verified that the list contains only the element of the second list
+     * Test Description: After adding some elements to one list, a small group of elements will be added in a second list, then we test the retainAll method.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
      * Post-Condition: The retainAll method remove all the elements that are in the first list but not in the second.
      * <br><br>
-     * Expected Results: The retainAll, toArray are correctly working
+     * Expected Results: The retainAll, toArray are correctly working.
      */
     @Test
     public void testRetainAll()
@@ -429,13 +430,13 @@ public class TestList
      * <br><br>
      * Test Case Design: The test case is designed to test that the indexOf method return the correct index of the element(that is the index of the first occurrence of the element in the list).
      * <br> <br>
-     * Test Description: Assertion that verified that the indexOf method return the correct index of the element.
+     * Test Description: Assertion that verified that the indexOf method return the correct index of the element added before.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
      * Post-Condition: The indexOf method return the correct index of the element.
      * <br><br>
-     * Expected Results: The indexOf is correctly working
+     * Expected Results: The indexOf is correctly working.
      */
     @Test
     public void testIndexOf()
@@ -455,13 +456,13 @@ public class TestList
      * <br><br>
      * Test Case Design: The test case is designed to test that the lastIndexOf method return the correct index of the element(that is the index of the last occurrence of the element in the list).
      * <br> <br>
-     * Test Description: Assertion that verified that the lastIndexOf method return the correct index of the element.
+     * Test Description: Assertion that verified that the lastIndexOf method return the correct index of the element added before.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
      * Post-Condition: The lastIndexOf method return the correct index of the element.
      * <br><br>
-     * Expected Results: The lastIndexOf is correctly working
+     * Expected Results: The lastIndexOf is correctly working.
      */
     @Test
     public void testLastIndexOf()
@@ -515,15 +516,15 @@ public class TestList
     /**
      * Test case summary: test that the equals method is correctly working.
      * <br><br>
-     * Test Case Design: The test case is designed to test that after adding some elements to the list then create two new lists with th same elements in the first list. After that testing if they are equals.
+     * Test Case Design: The test case is designed to test that the list is equal to other lists with the same elements in the same order.
      * <br> <br>
-     * Test Description: Assertion that verified that the list is equal to the second and third list
+     * Test Description: After adding some elements to the first list, the same elements are added to the second and third list. So they are equals and so the equals method is tested.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
-     * Post-Condition: The three list are equals
+     * Post-Condition: The three list are equals.
      * <br><br>
-     * Expected Results: The equals is correctly working
+     * Expected Results: The equals is correctly working.
      */
     @Test
     public void testEquals()
@@ -556,13 +557,13 @@ public class TestList
      * <br><br>
      * Test Case Design: The test case is designed to test that two lists with same elements have the same hascode.
      * <br> <br>
-     * Test Description: Assertion that verified that the two list have the same hashcode
+     * Test Description: Assertion that verified that the two list have the same hashcode.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
-     * Post-Condition: The two list have the same hashcode
+     * Post-Condition: The two list have the same hashcode.
      * <br><br>
-     * Expected Results: The hashCode is correctly working
+     * Expected Results: The hashCode is correctly working.
      */
     @Test
     public void testHashCode()
@@ -588,6 +589,20 @@ public class TestList
 
     //#region test esempi
 
+    /**
+     * Test case summary: test that the backing list operations are correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that any structural operation in the subList is reflected on the fatherList.
+     * <br> <br>
+     * Test Description: Some elements are added to the list. Then the subList method is invoked, after that one element is added and then removed. The size of the subList and the fatherList is tested after the add operation and the remove operation.
+     * Also the subList will be cleared so the size of the lists are tested.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The structural changes in the subList are reflected on the fatherList.
+     * <br><br>
+     * Expected Results: The subList is correctly working.
+     */
     @Test
 	public void testBacking()
 	{
@@ -637,6 +652,19 @@ public class TestList
 
 	}
     
+    /**
+     * Test case summary: test that the backing list is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that the subList have only the element from the range specified at the invocation of subList method.
+     * <br> <br>
+     * Test Description: Some elements are added to the list. Then the subList method is invoked, after that the subList is visited.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The subList have only the elements from the range specified.
+     * <br><br>
+     * Expected Results: The subList is correctly working.
+     */
     @Test
 	public void testRecursiveSublist()
 	{
@@ -681,6 +709,19 @@ public class TestList
 		}
 	}
 
+    /**
+     * Test case summary: test that the ListIterator remove, next,previous are correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that the ListIterator operations function correctly.
+     * <br> <br>
+     * Test Description: Some elements are added then a ListIterator is created and the elements are visited forward and backawards, after the elements are removed.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The ListIterator visit and remove all of the elements.
+     * <br><br>
+     * Expected Results: The ListIterator is correctly working.
+     */
 	@Test
 	public void testIterator3()
 	{
@@ -710,6 +751,19 @@ public class TestList
 		assertEquals("\n*** insertion and forward to end and backward removal not working ***\n", dl2, 0);
 	}
 
+    /**
+     * Test case summary: test that the ListIterator remove is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that the ListIterator operation function correctly.
+     * <br> <br>
+     * Test Description: Some elements are added then a ListIterator is created and the elements are visited and removed.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The ListIterator visit and remove all of the elements.
+     * <br><br>
+     * Expected Results: The ListIterator is correctly working.
+     */
 	@Test
 	public void testIterator2()
 	{
@@ -736,10 +790,27 @@ public class TestList
 		assertEquals("\n*** insertion and forward removal not working ***\n", dl2, 0);
 	}
 
+    /**
+     * Test case summary: test that the ListIterator remove is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that the ListIterator visit all the elements backwards and it removed them correctly.
+     * <br> <br>
+     * Test Description: Some elements are added then a ListIterator is created from the last index and then it visit all of the element backwards. Also the elements are removed.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The ListIterator visit all of the elements and remove them.
+     * <br><br>
+     * Expected Results: The ListIterator is correctly working.
+     */
 	@Test
 	public void testIterator1()
 	{
 		System.out.println("TestListIterator #1");
+        for(int i=0;i<argv.length;i++)
+		{
+			l1.add(argv[i]);
+		}
 		iterate(l1.iterator());
 		li = l1.listIterator(l1.size());
 		while(li.hasPrevious())
@@ -753,6 +824,10 @@ public class TestList
 		assertEquals("\n*** listiterator from end not working ***\n", l1.size(), 0);
 	}
 
+    /**
+     * method that iterate using the specified iterator, and print all of the elements of the list.
+     * @param iter the iterator used to visit the element of the list.
+     */
     public static void iterate(HIterator iter)
 	{
 		System.out.print("{");
