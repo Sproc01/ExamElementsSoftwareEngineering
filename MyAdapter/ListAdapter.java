@@ -3,7 +3,7 @@ package myAdapter;
 import java.util.Enumeration;
 
 /**
- * A class implementing interface HList and HCollection but does not support null elements
+ * A class implementing interface HList and HCollection. It supports duplicate and null elements.
  * @author Michele Sprocatti
  */
 public class ListAdapter implements HList, HCollection
@@ -151,17 +151,7 @@ public class ListAdapter implements HList, HCollection
     {
         if(o==null)
             return false;
-        if(!(o instanceof HList))
-            return false;
-        HList l=(HList)o;
-        if(size()!=l.size())
-            return false;
-        Object[] o1=toArray();
-        Object[] o2=l.toArray();
-        for(int i=0;i<o1.length;i++)
-            if(!o1[i].equals(o2[i]))
-                return false;
-        return true;
+        return hashCode()==o.hashCode();
     }
 
     /**

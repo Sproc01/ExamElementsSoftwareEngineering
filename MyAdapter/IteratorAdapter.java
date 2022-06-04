@@ -3,8 +3,7 @@ package myAdapter;
 import java.util.NoSuchElementException;
 
 /**
- * Iterator adapter implements HIterator and HListIterator interface
- * This class does not support null elements added to the list
+ * Iterator adapter implements HIterator and HListIterator interface.
  * @author Michele Sprocatti
  */
 public class IteratorAdapter implements HListIterator,HIterator
@@ -92,8 +91,8 @@ public class IteratorAdapter implements HListIterator,HIterator
     {
         if(o==null)
             throw new IllegalArgumentException();
-        list.add(index+1, o);
         index++;
+        list.add(index, o);
         canOperation=false;
         nextLast=false;
     }
