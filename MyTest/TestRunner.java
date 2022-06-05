@@ -6,8 +6,8 @@ import java.util.*;
 import org.junit.runner.notification.Failure;
 
 /**
- * Class that run the test suite for the MyAdapter package.
- * 
+ * Class that run {@link TestList}.
+ * It is the class that contains all the test for {@link myAdapter.ListAdapter}.
  * @version JUnit 4.13
  * @version Harmcrest: 1.3
  * @version JVM from JME CLDC 1.1
@@ -19,7 +19,7 @@ public class TestRunner
      * Main method: run the test suite.
      * This will invoke all test of the suite, and print the result.
      * If there are some failure the method will print the messages of the failure.
-     * @param args
+     * @param args not used.
      */
     public static void main(String[] args)
     {
@@ -37,7 +37,7 @@ public class TestRunner
         System.out.println("Time used for testing: "+res.getRunTime()+" ms\n");*/
 
         System.out.println("Testing...\n");
-        res=JUnitCore.runClasses(TestList.class);
+        Result res=JUnitCore.runClasses(TestList.class);
         System.out.println("Correct test: "+res.wasSuccessful());
         System.out.println("Number of test for list: "+res.getRunCount());
         System.out.println("Number of failed test for list: "+res.getFailureCount());

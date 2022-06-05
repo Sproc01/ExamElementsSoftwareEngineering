@@ -139,13 +139,12 @@ public class ListAdapter implements HList, HCollection
      * Override of the Object.equals method.
      * @param o object to be compared.
      * @return true if the specified object is equal to this list.
-     * @exception NullPointerException if the specified object is null.
      * @see {@link HList#equals(Object)} 
      */
     public boolean equals(Object o)
     {
         if(o==null)
-            throw new NullPointerException();
+            return false;
         return hashCode()==o.hashCode();
     }
 

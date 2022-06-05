@@ -2,17 +2,14 @@ package myTest;
 import myAdapter.*;
 
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 import org.junit.*;
 
 import java.util.NoSuchElementException;
 
 /**
- * Test class for the ListAdapter class
- * <br> <br> <br>
+ * This test suite provide some test methods for {@link myAdapter.ListAdapter} and its functionality.
+ * <br> <br>
  * Summary: This test suite tests all the functions of the ListAdapter:
  * Sometime single function, sometimes some functions togheter.
  * <br><br>
@@ -22,25 +19,27 @@ import java.util.NoSuchElementException;
  * <br> <br>
  * Precondition: All the method of the ListAdapter class must be implemented.
  * <br> <br>
- * Postcondition: Every test must be passed to consider the listAdapter class as correct.
+ * Postcondition: Every test must be passed to consider the listAdapter implementation correct.
  * <br> <br>
  * Test cases: In this test suite there are various test cases: Adding and removing elements given the index or the element, using HIterator and HListIterator to 
- * visit the element of the list, test subList and his use, testing size(), clear() methods, test every search method(contains, indexOf, lastIndexOf),
+ * visit the element of the list. Test the subList and its use. Also size(), clear() and search methods(contains, indexOf, lastIndexOf) are tested.
  * <br> <br>
  * Execution records: If every condition in every test give positive result the test suite will be executed corrected and these results are considered Execution records.
  * <br> <br>
  * Execution variables:
- * <br> HList l1: list use for the majority of the test
- * <br> HList l2: list use for functions that use two lists(if more needed we instatiate others).
- * <br> HListIterator li: ListIterator use for testing his functions
- * <br> String[] array: elements use for testing
+ * <br> -HList l1: list use for the majority of the test
+ * <br> -HList l2: list use for functions that use two lists(if more needed we instatiate others).
+ * <br> -HListIterator li: ListIterator use for testing his functions
+ * <br> -String[] array: elements use for testing
  * @version JUnit 4.13
  * @version Harmcrest: 1.3
  * @version JVM from JME CLDC 1.1
- * @see myAdapter.HList
+ * @see  myAdapter.HList
  * @see myAdapter.HCollection
  * @see myAdapter.HIterator
  * @see myAdapter.HListIterator
+ * @see myAdapter.ListAdapter
+ * @see myAdapter.IteratorAdapter
  * @author Michele Sprocatti
  */
 public class TestList
@@ -516,6 +515,7 @@ public class TestList
         }
         l2.add("pippo");
         l2.add("pluto");
+        l1.add("pippo");//every duplicate is also removed.
         l1.removeAll(l2);
         assertEquals(4, l1.size());
         assertArrayEquals(new Object[]{"qui", "paperino", "qui", "ciccio"}, l1.toArray());
@@ -545,14 +545,6 @@ public class TestList
         {
             l2.add(argv[i]);
         }
-        try 
-        {
-            l1.equals(null);
-            throw new Exception();
-        } catch (Exception e) 
-        {
-            assertEquals(NullPointerException.class, e.getClass());
-        }
         HList l3=new ListAdapter();
         l3.addAll(l2);
 
@@ -572,7 +564,7 @@ public class TestList
      * <br><br>
      * Test Case Design: The test case is designed to test that two lists with same elements have the same hascode and that the hashcode of one list is the weighted sum of the elements hashcode.
      * <br> <br>
-     * Test Description: Assertion that verified that the two list have the same hashcode.
+     * Test Description: Assertion that verified that the two list have the same hashcode, after adding the same elements to both.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
@@ -607,7 +599,36 @@ public class TestList
         assertNotEquals(l2.hashCode(), l1.hashCode());
     }
 
-    //#region test esempi
+        /**
+     * Test case summary: test that the toArray with parameters is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that the toArray(Object[]) return the correct array
+     * <br> <br>
+     * Test Description: Assertion that verified that the array returned is correct
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked.
+     * <br> <br>
+     * Post-Condition: The array returned is correct
+     * <br><br>
+     * Expected Results: The array returned is correct
+     */
+    @Test
+    public void testToArrayWithParameters()
+    {
+        try
+        {
+            l1.toArray(null);
+            throw new Exception();
+        }catch(Exception e)
+        { assertEquals(NullPointerException.class, e.getClass());}
+        Object[] a=new Object[1];
+        for(int i=0;i<argv.length;i++)
+            l1.add(argv[i]);
+
+        assertArrayEquals(new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray(a));
+    }
+
+    //#region test forniti dal docente
 
     /**
      * Test case summary: test that the backing list operations are correctly working.
@@ -615,7 +636,7 @@ public class TestList
      * Test Case Design: The test case is designed to test that any structural operation in the subList is reflected on the fatherList.
      * <br> <br>
      * Test Description: Some elements are added to the list. Then the subList method is invoked, after that one element is added and then removed. The size of the subList and the fatherList is tested after the add operation and the remove operation.
-     * Also the subList will be cleared so the size of the lists are tested.
+     * Also the subList will be cleared so the size of the lists are tested again.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
@@ -845,7 +866,7 @@ public class TestList
 	}
 
     /**
-     * method that iterate using the specified iterator, and print all of the elements of the list.
+     * Method that iterate using the specified iterator, during the visit the elements are printed.
      * @param iter the iterator used to visit the element of the list.
      */
     public static void iterate(HIterator iter)
@@ -860,34 +881,6 @@ public class TestList
 
     //#endregion
 
-    /**
-     * Test case summary: test that the toArray with parameters is correctly working.
-     * <br><br>
-     * Test Case Design: The test case is designed to test that the toArray(Object[]) return the correct array
-     * <br> <br>
-     * Test Description: Assertion that verified that the array returned is correct
-     * <br> <br>
-     * Pre-Condition: The constructor is already invoked.
-     * <br> <br>
-     * Post-Condition: The array returned is correct
-     * <br><br>
-     * Expected Results: The array returned is correct
-     */
-    @Test
-    public void testToArrayWithParameters()
-    {
-        try
-        {
-            l1.toArray(null);
-            throw new Exception();
-        }catch(Exception e)
-        { assertEquals(NullPointerException.class, e.getClass());}
-        Object[] a=new Object[1];
-        for(int i=0;i<argv.length;i++)
-            l1.add(argv[i]);
-
-        assertArrayEquals(new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray(a));
-    }
     /**
      * After the test suite this will inform the user that the tests have finished.
      */
