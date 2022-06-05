@@ -5,11 +5,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.util.NoSuchElementException;
-
 import static org.junit.Assert.assertNotEquals;
 import org.junit.*;
+
+import java.util.NoSuchElementException;
 
 /**
  * Test class for the ListAdapter class

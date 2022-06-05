@@ -20,7 +20,7 @@ public class IteratorAdapter implements HListIterator,HIterator
     public IteratorAdapter(HList l)
     {
         list=l;
-        index=-1;
+        index=0;
         canOperation=false;
         nextLast=false;
     }
@@ -33,7 +33,7 @@ public class IteratorAdapter implements HListIterator,HIterator
     public IteratorAdapter(HList l, int i)
     {
         list=l;
-        index=i-1;
+        index=i;
         canOperation=false;
         nextLast=false;
     }
@@ -44,7 +44,7 @@ public class IteratorAdapter implements HListIterator,HIterator
      */
     public boolean hasNext()
     {
-        return index<list.size()-1;
+        return index<list.size();
     }
 
     /**
@@ -57,13 +57,14 @@ public class IteratorAdapter implements HListIterator,HIterator
         if(!hasNext())
             throw new NoSuchElementException();
         canOperation=true;
+        Object e=list.get(index);
         index++;
         nextLast=true;
-        return list.get(index);
+        return e;
     }
 
     /**
-     * Remove the last element returned by next() or previous() only if next() or previous is the last operation
+     * Remove the last element returned by next() or previous() only if next() or previous is the last operation.
      * @exception IllegalStateException if next() or previous() is not the last operation
      */
     public void remove()
@@ -72,10 +73,13 @@ public class IteratorAdapter implements HListIterator,HIterator
             throw new IllegalStateException();
         if(nextLast)
         {
-            list.remove(index);
+            list.remove(index-1);
             index--;
         }else
-            list.remove(index+1);
+        {
+            list.remove(index);
+        }    
+
         canOperation=false;
         nextLast=false;
     }
@@ -91,8 +95,8 @@ public class IteratorAdapter implements HListIterator,HIterator
     {
         if(o==null)
             throw new IllegalArgumentException();
-        index++;
         list.add(index, o);
+        index++;
         canOperation=false;
         nextLast=false;
     }
@@ -103,7 +107,7 @@ public class IteratorAdapter implements HListIterator,HIterator
      */
     public boolean hasPrevious()
     {
-        return index>-1;
+        return index>0;
     }
 
     /**
@@ -120,7 +124,7 @@ public class IteratorAdapter implements HListIterator,HIterator
 
     /** Return the previous element if there is one, otherwise throw NoSuchElementException
      * @return the previous element
-     * @exception NoSuchElementException if there is no next element
+     * @exception NoSuchElementException if there is no previous element.
      */
     public Object previous()
     {
@@ -128,9 +132,8 @@ public class IteratorAdapter implements HListIterator,HIterator
             throw new NoSuchElementException();
         canOperation=true;
         nextLast=false;
-        Object e=list.get(index);
         index--;
-        return e;
+        return list.get(index);
     }
 
     /**
@@ -142,7 +145,7 @@ public class IteratorAdapter implements HListIterator,HIterator
     {
         if(index<=0)
             return -1;
-        return index;
+        return index-1;
     }
     /**
      * Set the element return by next() or previous()
@@ -157,9 +160,9 @@ public class IteratorAdapter implements HListIterator,HIterator
         if(!canOperation)
             throw new IllegalStateException();
         if(nextLast)
-            list.set(index, o);
+            list.set(index-1, o);
         else
-            list.set(index+1, o);
+            list.set(index, o);
         nextLast=false;
 
     }
