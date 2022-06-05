@@ -23,7 +23,7 @@ public class TestRunner
      */
     public static void main(String[] args)
     {
-        System.out.println("Testing file prof...\n");
+        /*System.out.println("Testing file prof...\n");
         Result res=JUnitCore.runClasses(ListTest.class);
         System.out.println("Correct test: "+res.wasSuccessful());
         System.out.println("Number of test for list: "+res.getRunCount());
@@ -34,7 +34,7 @@ public class TestRunner
         {
             System.out.println(f.getMessage());
         }
-        System.out.println("Time used for testing: "+res.getRunTime()+" ms\n");
+        System.out.println("Time used for testing: "+res.getRunTime()+" ms\n");*/
 
         System.out.println("Testing...\n");
         res=JUnitCore.runClasses(TestList.class);

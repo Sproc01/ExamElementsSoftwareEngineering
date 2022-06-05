@@ -20,9 +20,6 @@ import java.util.NoSuchElementException;
  * two different lists, one iterator and an array of string for testng. It is design to run every test with an empty list so there are no 
  * interaction between tests.
  * <br> <br>
- * Description: Before every test there is an empty list so there are no interaction between tests. To test the function of the ListAdapter some element will be added, remove and visited.
- * An HList is also an HCollection so it will test the correct function of the HCollection methods.
- * <br> <br>
  * Precondition: All the method of the ListAdapter class must be implemented.
  * <br> <br>
  * Postcondition: Every test must be passed to consider the listAdapter class as correct.
