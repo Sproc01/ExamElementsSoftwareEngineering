@@ -145,7 +145,7 @@ public class ListAdapter implements HList, HCollection
     public boolean equals(Object o)
     {
         if(o==null)
-            return false;
+            throw new NullPointerException();
         return hashCode()==o.hashCode();
     }
 

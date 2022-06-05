@@ -14,8 +14,8 @@ public class IteratorAdapter implements HListIterator,HIterator
     private boolean nextLast;
 
     /**
-     * Build the iterator, it starts from 0
-     * @param l list to iterate
+     * Build the iterator, it starts from 0.
+     * @param l list to iterate.
      */
     public IteratorAdapter(HList l)
     {
@@ -26,9 +26,9 @@ public class IteratorAdapter implements HListIterator,HIterator
     }
 
     /**
-     * Build the iterator but it starts from the index
-     * @param l list to iterate
-     * @param i index to start
+     * Build the iterator but it starts from the index.
+     * @param l list to iterate.
+     * @param i index to start.
      */
     public IteratorAdapter(HList l, int i)
     {
@@ -39,8 +39,8 @@ public class IteratorAdapter implements HListIterator,HIterator
     }
 
     /**
-     * Return boolean that indicates if there is a next element
-     * @return true if the iterator has more elements
+     * Return boolean that indicates if there is a next element.
+     * @return true if the iterator has more elements.
      */
     public boolean hasNext()
     {
@@ -48,9 +48,9 @@ public class IteratorAdapter implements HListIterator,HIterator
     }
 
     /**
-     * Return the next element if there is one, otherwise throw NoSuchElementException
-     * @return the next element
-     * @exception NoSuchElementException if there is no next element
+     * Return the next element if there is one, otherwise throw NoSuchElementException.
+     * @return the next element.
+     * @exception NoSuchElementException if there is no next element.
      */
     public Object next()
     {
@@ -65,7 +65,7 @@ public class IteratorAdapter implements HListIterator,HIterator
 
     /**
      * Remove the last element returned by next() or previous() only if next() or previous is the last operation.
-     * @exception IllegalStateException if next() or previous() is not the last operation
+     * @exception IllegalStateException if next() or previous() is not the last operation.
      */
     public void remove()
     {
@@ -102,8 +102,8 @@ public class IteratorAdapter implements HListIterator,HIterator
     }
 
     /**
-     * Return true if there is a previous element
-     * @return true if there is a previous element
+     * Return true if there is a previous element.
+     * @return true if there is a previous element.
      */
     public boolean hasPrevious()
     {
@@ -111,9 +111,9 @@ public class IteratorAdapter implements HListIterator,HIterator
     }
 
     /**
-     * Return the next index, formally the index of the next element to be returned by next()
-     * If there is no next element, return the size of the list
-     * @return the next index
+     * Return the next index, formally the index of the next element to be returned by next().
+     * If there is no next element, return the size of the list.
+     * @return the next index.
      */
     public int nextIndex()
     {
@@ -122,8 +122,8 @@ public class IteratorAdapter implements HListIterator,HIterator
         return index+1;
     }
 
-    /** Return the previous element if there is one, otherwise throw NoSuchElementException
-     * @return the previous element
+    /** Return the previous element if there is one, otherwise throw NoSuchElementException.
+     * @return the previous element.
      * @exception NoSuchElementException if there is no previous element.
      */
     public Object previous()
@@ -137,9 +137,9 @@ public class IteratorAdapter implements HListIterator,HIterator
     }
 
     /**
-     * Return the previous index, formally the index of the previous element to be returned by previous()
-     * If there is no previous element, return -1
-     * @return the previous index
+     * Return the previous index, formally the index of the previous element to be returned by previous().
+     * If there is no previous element, return -1.
+     * @return the previous index.
      */
     public int previousIndex()
     {
@@ -148,10 +148,10 @@ public class IteratorAdapter implements HListIterator,HIterator
         return index-1;
     }
     /**
-     * Set the element return by next() or previous()
-     * @param o the element to set
-     * @exception IllegalStateException if next() or previous() is not the last operation
-     * @exception IllegalArgumentException if the element is null
+     * Set the element return by next() or previous().
+     * @param o the element to set.
+     * @exception IllegalStateException if next() or previous() is not the last operation.
+     * @exception IllegalArgumentException if the element is null.
      */
     public void set(Object o)
     {

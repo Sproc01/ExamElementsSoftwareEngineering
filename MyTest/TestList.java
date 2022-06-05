@@ -231,6 +231,12 @@ public class TestList
         assertEquals(argv[4], iterator.next());
         assertEquals(argv[5], iterator.next());
         assertEquals(false, iterator.hasNext());
+        try {
+            iterator.next();
+            throw new Exception();
+        } catch (Exception e) {
+            assertEquals(NoSuchElementException.class, e.getClass());
+        }
     }
 
     /**
@@ -336,6 +342,12 @@ public class TestList
         for(int i=0;i<argv.length;i++)
         {
             l1.add(argv[i]);
+        }
+        try {
+            l1.containsAll(null);
+            throw new Exception();
+        } catch (Exception e) {
+            assertEquals(NullPointerException.class, e.getClass());
         }
         l2.add(argv[0]);
         l2.add(argv[1]);
@@ -536,7 +548,14 @@ public class TestList
         {
             l2.add(argv[i]);
         }
-
+        try 
+        {
+            l1.equals(null);
+            throw new Exception();
+        } catch (Exception e) 
+        {
+            assertEquals(NullPointerException.class, e.getClass());
+        }
         HList l3=new ListAdapter();
         l3.addAll(l2);
 
@@ -554,7 +573,7 @@ public class TestList
      /**
      * Test case summary: test that the hashCode method is correctly working.
      * <br><br>
-     * Test Case Design: The test case is designed to test that two lists with same elements have the same hascode.
+     * Test Case Design: The test case is designed to test that two lists with same elements have the same hascode and that the hashcode of one list is the weighted sum of the elements hashcode.
      * <br> <br>
      * Test Description: Assertion that verified that the two list have the same hashcode.
      * <br> <br>
@@ -575,7 +594,12 @@ public class TestList
         {
             l2.add(argv[i]);
         }
-
+        int hash=0;
+        for(int i=0;i<argv.length;i++)
+        {
+            hash+=argv[i].hashCode()*Math.pow(31, i);
+        }
+        assertEquals(hash, l1.hashCode());
         assertEquals(l2.hashCode(), l1.hashCode());
 
         l2.clear();
