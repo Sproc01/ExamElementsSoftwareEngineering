@@ -93,8 +93,6 @@ public class IteratorAdapter implements HListIterator,HIterator
      */
     public void add(Object o)
     {
-        if(o==null)
-            throw new IllegalArgumentException();
         list.add(index, o);
         index++;
         canOperation=false;
@@ -150,20 +148,17 @@ public class IteratorAdapter implements HListIterator,HIterator
     /**
      * Set the element return by next() or previous().
      * @param o the element to set.
-     * @exception IllegalStateException if next() or previous() is not the last operation.
-     * @exception IllegalArgumentException if the element is null.
+     * @exception IllegalStateException if neither next nor previous have been called, 
+     * or remove or add have been called after the last call to next or previous.
      */
     public void set(Object o)
     {
-        if(o==null)
-            throw new IllegalArgumentException();
         if(!canOperation)
             throw new IllegalStateException();
         if(nextLast)
             list.set(index-1, o);
         else
             list.set(index, o);
-        nextLast=false;
-
+        //nextLast=false;
     }
 }
