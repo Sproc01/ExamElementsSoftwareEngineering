@@ -388,11 +388,6 @@ public class ListAdapter implements HList, HCollection
     public Object[] toArray()
     {
         Object[] array = new Object[size()];
-        if(size()==0)
-        {
-            for(int i=0; i<array.length; i++)
-                array[i]=null;
-        }
         for(int i=0; i<size(); i++)
             array[i] = v.elementAt(i);
         return array;
@@ -402,7 +397,7 @@ public class ListAdapter implements HList, HCollection
      * Returns an array containing all of the elements in this list; 
      * the runtime type of the returned array is that of the specified array. 
      * If the list fits in the specified array, it is returned therein, if there is space for other elements.
-     * Otherwise, a new array is allocated with the runtime type of the specified array and the size of this list.
+     * Otherwise, a new array is allocated with object type and the size of this list.
      * @return an array containing all of the elements in this list
      * @throws NullPointerException if the array is null
      * @see {@link HList#toArray(Object[])} 
@@ -413,11 +408,6 @@ public class ListAdapter implements HList, HCollection
             throw new NullPointerException();
         if(a.length<size())
             a = new Object[size()];
-        if(size()==0)
-        {
-            for(int i=0; i<a.length; i++)
-                a[i]=null;
-        }
         for(int i=0; i<size(); i++)
             a[i]=v.elementAt(i);
         return a;
