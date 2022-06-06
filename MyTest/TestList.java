@@ -69,6 +69,7 @@ public class TestList
         l2 = new ListAdapter();
     }
 
+    //#region test listAdapter
     /**
      * Test the constructor of the ListAdapter class.
      * <br> <br>
@@ -209,180 +210,6 @@ public class TestList
         assertEquals(2, l1.size());
     }
 
-    /**
-     * Test case summary: test that the iterator is correctly working.
-     * @see myAdapter.ListAdapter#iterator()
-     * <br><br>
-     * Test Case Design: The test case is designed to add some elements then visit the list with the iterator. 
-     * <br> <br>
-     * Test Description: The list is visited with the iterator and the correct behaviour of the iterator t is tested.
-     * <br> <br>
-     * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
-     * <br> <br>
-     * Post-Condition: The iterator visit all the elements.
-     * <br><br>
-     * Expected Results: Every assertions in this method give positive result.
-     */
-    @Test
-    public void TestIterator()
-    {
-        for(int i=0;i<argv.length;i++)
-        {
-            l1.add(argv[i]);
-        }
-        HIterator iterator = l1.iterator();
-        assertEquals(argv[0], iterator.next());
-        assertEquals(argv[1], iterator.next());
-        assertEquals(argv[2], iterator.next());
-        assertEquals(argv[3], iterator.next());
-        assertEquals(argv[4], iterator.next());
-        assertEquals(argv[5], iterator.next());
-        assertEquals(false, iterator.hasNext());
-        try {
-            iterator.next();
-            throw new Exception();
-        } catch (Exception e) {
-            assertEquals(NoSuchElementException.class, e.getClass());
-        }
-    }
-
-    /**
-     * Test case summary: test that the listIterator is correctly working.
-     * @see myAdapter.ListAdapter#listIterator()
-     * @see myAdapter.IteratorAdapter#next()
-     * @see myAdapter.IteratorAdapter#hasNext()
-     * @see myAdapter.IteratorAdapter#previous()
-     * @see myAdapter.IteratorAdapter#hasPrevious()
-     * <br><br>
-     * Test Case Design: The test case is designed to add some elements then visit the list with the listIterator. 
-     * <br> <br>
-     * Test Description: Assertions that verified that the listIterator visit all the element and it stops at the end of the list. Also it visit the element backwards and it stops at the beginning of the list.
-     * Also the throw of the NoSuchElementException is tested.
-     * <br> <br>
-     * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
-     * <br> <br>
-     * Post-Condition: The listIterator visit all the elements forward and backwards.
-     * <br><br>
-     * Expected Results: Every assertions in this method give positive result.
-     */
-    @Test
-    public void TestListIterator()
-    {
-        for(int i=0;i<argv.length;i++)
-        {
-            l1.add(argv[i]);
-        }
-        li= l1.listIterator();
-        assertEquals(argv[0], li.next());
-        assertEquals(argv[1], li.next());
-        assertEquals(argv[2], li.next());
-        assertEquals(argv[3], li.next());
-        assertEquals(argv[4], li.next());
-        assertEquals(argv[5], li.next());
-        assertEquals(false, li.hasNext());
-        try{
-            li.next();
-            throw new Exception();
-        }
-        catch(Exception e)
-        {
-            assertEquals(NoSuchElementException.class, e.getClass());
-        }
-        assertEquals(true, li.hasPrevious());
-        assertEquals(argv[5], li.previous());
-        assertEquals(argv[4], li.previous());
-        assertEquals(argv[3], li.previous());
-        assertEquals(argv[2], li.previous());
-        assertEquals(argv[1], li.previous());
-        assertEquals(argv[0], li.previous());
-        assertEquals(false, li.hasPrevious());
-        try{
-            li.previous();
-            throw new Exception();
-        }
-        catch(Exception e)
-        {
-            assertEquals(NoSuchElementException.class, e.getClass());
-        }
-    }
-
-    /**
-     * Test case summary: test that the listIterator set is correctly working.
-     * @see myAdapter.ListAdapter#listIterator()
-     * @see myAdapter.IteratorAdapter#set(java.lang.Object)
-     * <br><br>
-     * Test Case Design: The test case is designed to add some elements then use the set operation of the ListIterator to change them.
-     * <br> <br>
-     * Test Description: Some elements are inserted in the list. Then the listIterator is used to change some of them. The element that must be changed is tested.
-     * Also it is tested that the set operation can be done only after next/previous operation or after another set operation.
-     * <br> <br>
-     * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
-     * <br> <br>
-     * Post-Condition: The listIterator set is correctly working.
-     * <br><br>
-     * Expected Results: Every assertion give positive result.
-     */
-    @Test
-    public void testListIteratorSet()
-    {
-        for(int i=0;i<argv.length;i++)
-        {
-            l1.add(argv[i]);
-        }
-        li=l1.listIterator();
-        li.next();
-        li.next();
-        li.set("Mondo");
-        assertEquals(true, l1.contains("Mondo"));
-        assertArrayEquals(new Object[]{"pippo", "Mondo", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
-        li.set("Ciao");
-        assertArrayEquals(new Object[]{"pippo", "Ciao", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
-        li.add("qui");
-        try 
-        {
-            li.set("qui");
-            throw new Exception();
-        } catch (Exception e) 
-        {
-            assertEquals(IllegalStateException.class, e.getClass());
-        }
-        assertArrayEquals(new Object[]{"pippo", "Ciao", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
-        assertEquals("qui",li.previous());
-        li.set("M");
-        assertArrayEquals(new Object[]{"pippo", "Ciao", "M", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
-    }
-
-
-    /** 
-     * Test case summary: test that the listIterator add is correctly working.
-     * @see myAdapter.ListAdapter#listIterator()
-     * @see myAdapter.IteratorAdapter#add(java.lang.Object)
-     * <br><br>
-     * Test Case Design: The test case is designed to add some elements then use the add operation of the ListIterator to add another one.
-     * <br> <br>
-     * Test Description: Some elements are inserted in the list. Then the listIterator is used to add another one after the first element. The presence of the element just added is tested.
-     * <br><br>
-     * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
-     * <br> <br>
-     * Post-Condition: The listIterator add is correctly working.
-     * <br><br>
-     * Expected Results: Every assertions in this method give positive result.
-     */
-    @Test 
-    public void testListIteratorAdd()
-    {
-        for(int i=0;i<argv.length;i++)
-        {
-            l1.add(argv[i]);
-        }
-        li=l1.listIterator();
-        li.next();
-        li.add("Mondo");
-        assertEquals(true, l1.contains("Mondo"));
-        assertEquals("Mondo", li.previous());
-        li.next();//cursor goes backwards to test the previous element, this call cancels the call to previous.
-        assertEquals("qui", li.next());
-    }
     /**
      * Test case summary: test that the isEmpty method is correctly working.
      * @see myAdapter.ListAdapter#isEmpty()
@@ -634,7 +461,7 @@ public class TestList
      * <br> <br>
      * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
      * <br> <br>
-     * Post-Condition: The three list are equals.
+     * Post-Condition: The three list are equals when they have same elements in the same order.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
      */
@@ -673,7 +500,7 @@ public class TestList
      * <br> <br>
      * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
      * <br> <br>
-     * Post-Condition: The two list have the same hashcode.
+     * Post-Condition: The two list have the same hashcode if they have the same elements in the same order.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
      */
@@ -733,6 +560,187 @@ public class TestList
 
         assertArrayEquals(new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray(a));
     }
+
+    //#endregion
+
+    //#region testIterator
+    
+    /**
+     * Test case summary: test that the iterator is correctly working.
+     * @see myAdapter.ListAdapter#iterator()
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then visit the list with the iterator. 
+     * <br> <br>
+     * Test Description: The list is visited with the iterator and the correct behaviour of the iterator t is tested.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
+     * <br> <br>
+     * Post-Condition: The iterator visit all the elements.
+     * <br><br>
+     * Expected Results: Every assertions in this method give positive result.
+     */
+    @Test
+    public void TestIterator()
+    {
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        HIterator iterator = l1.iterator();
+        assertEquals(argv[0], iterator.next());
+        assertEquals(argv[1], iterator.next());
+        assertEquals(argv[2], iterator.next());
+        assertEquals(argv[3], iterator.next());
+        assertEquals(argv[4], iterator.next());
+        assertEquals(argv[5], iterator.next());
+        assertEquals(false, iterator.hasNext());
+        try {
+            iterator.next();
+            throw new Exception();
+        } catch (Exception e) {
+            assertEquals(NoSuchElementException.class, e.getClass());
+        }
+    }
+
+    /**
+     * Test case summary: test that the listIterator is correctly working.
+     * @see myAdapter.ListAdapter#listIterator()
+     * @see myAdapter.IteratorAdapter#next()
+     * @see myAdapter.IteratorAdapter#hasNext()
+     * @see myAdapter.IteratorAdapter#previous()
+     * @see myAdapter.IteratorAdapter#hasPrevious()
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then visit the list with the listIterator. 
+     * <br> <br>
+     * Test Description: Assertions that verified that the listIterator visit all the element and it stops at the end of the list. Also it visit the element backwards and it stops at the beginning of the list.
+     * Also the throw of the NoSuchElementException is tested.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
+     * <br> <br>
+     * Post-Condition: The listIterator visit all the elements forward and backwards.
+     * <br><br>
+     * Expected Results: Every assertions in this method give positive result.
+     */
+    @Test
+    public void TestListIterator()
+    {
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        li= l1.listIterator();
+        assertEquals(argv[0], li.next());
+        assertEquals(argv[1], li.next());
+        assertEquals(argv[2], li.next());
+        assertEquals(argv[3], li.next());
+        assertEquals(argv[4], li.next());
+        assertEquals(argv[5], li.next());
+        assertEquals(false, li.hasNext());
+        try{
+            li.next();
+            throw new Exception();
+        }
+        catch(Exception e)
+        {
+            assertEquals(NoSuchElementException.class, e.getClass());
+        }
+        assertEquals(true, li.hasPrevious());
+        assertEquals(argv[5], li.previous());
+        assertEquals(argv[4], li.previous());
+        assertEquals(argv[3], li.previous());
+        assertEquals(argv[2], li.previous());
+        assertEquals(argv[1], li.previous());
+        assertEquals(argv[0], li.previous());
+        assertEquals(false, li.hasPrevious());
+        try{
+            li.previous();
+            throw new Exception();
+        }
+        catch(Exception e)
+        {
+            assertEquals(NoSuchElementException.class, e.getClass());
+        }
+    }
+
+    /**
+     * Test case summary: test that the listIterator set is correctly working.
+     * @see myAdapter.ListAdapter#listIterator()
+     * @see myAdapter.IteratorAdapter#set(java.lang.Object)
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then use the set operation of the ListIterator to change them.
+     * <br> <br>
+     * Test Description: Some elements are inserted in the list. Then the listIterator is used to change some of them. The element that must be changed is tested.
+     * Also it is tested that the set operation can be done only after next/previous operation or after another set operation.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
+     * <br> <br>
+     * Post-Condition: The listIterator set is correctly working.
+     * <br><br>
+     * Expected Results: Every assertion give positive result.
+     */
+    @Test
+    public void testListIteratorSet()
+    {
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        li=l1.listIterator();
+        li.next();
+        li.next();
+        li.set("Mondo");
+        assertEquals(true, l1.contains("Mondo"));
+        assertArrayEquals(new Object[]{"pippo", "Mondo", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
+        li.set("Ciao");
+        assertArrayEquals(new Object[]{"pippo", "Ciao", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
+        li.add("qui");
+        try 
+        {
+            li.set("qui");
+            throw new Exception();
+        } catch (Exception e) 
+        {
+            assertEquals(IllegalStateException.class, e.getClass());
+        }
+        assertArrayEquals(new Object[]{"pippo", "Ciao", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
+        assertEquals("qui",li.previous());
+        li.set("M");
+        assertArrayEquals(new Object[]{"pippo", "Ciao", "M", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
+    }
+
+    /** 
+     * Test case summary: test that the listIterator add is correctly working.
+     * @see myAdapter.ListAdapter#listIterator()
+     * @see myAdapter.IteratorAdapter#add(java.lang.Object)
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then use the add operation of the ListIterator to add another one.
+     * <br> <br>
+     * Test Description: Some elements are inserted in the list. Then the listIterator is used to add another one after the first element. The presence of the element just added is tested.
+     * <br><br>
+     * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
+     * <br> <br>
+     * Post-Condition: The listIterator add is correctly working.
+     * <br><br>
+     * Expected Results: Every assertions in this method give positive result.
+     */
+    @Test 
+    public void testListIteratorAdd()
+    {
+        for(int i=0;i<argv.length;i++)
+        {
+            l1.add(argv[i]);
+        }
+        li=l1.listIterator();
+        li.next();
+        li.add("Mondo");
+        assertEquals(true, l1.contains("Mondo"));
+        assertEquals("Mondo", li.previous());
+        li.next();//cursor goes backwards to test the previous element, this call cancels the call to previous.
+        //so the next element after the add operation is tested.
+        assertEquals("qui", li.next());
+    }
+
+    //#endregion
 
     //#region test forniti dal docente
 
