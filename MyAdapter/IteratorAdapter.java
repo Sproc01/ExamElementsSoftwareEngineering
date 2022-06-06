@@ -117,7 +117,7 @@ public class IteratorAdapter implements HListIterator,HIterator
     {
         if(index>=list.size())
             return list.size();
-        return index+1;
+        return index;
     }
 
     /** Return the previous element if there is one, otherwise throw NoSuchElementException.

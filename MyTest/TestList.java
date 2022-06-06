@@ -91,8 +91,6 @@ public class TestList
 
     /**
      * Test case summary: test that the add method and get method are correctly working.
-     * @see myAdapter.ListAdapter#add(java.lang.Object)
-     * @see myAdapter.ListAdapter#get(int)
      * <br><br>
      * Test Case Design: The test case is designed to test the add method and get method of the listAdapter.
      * <br> <br>
@@ -103,6 +101,8 @@ public class TestList
      * Post-Condition: The listAdapter contains all the elements added.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#add(java.lang.Object)
+     * @see myAdapter.ListAdapter#get(int)
      */
     @Test
     public void testAdd()
@@ -118,10 +118,7 @@ public class TestList
     }
 
     /**
-     * Test case summary: test that the clear,isEmpty,size methods are correctly working.
-     * @see myAdapter.ListAdapter#clear()
-     * @see myAdapter.ListAdapter#isEmpty()
-     * @see myAdapter.ListAdapter#size()
+     * Test case summary: test that the clear,size methods are correctly working.
      * <br><br>
      * Test Case Design: The test case is designed to add some elements then clear the list.
      * <br> <br>
@@ -132,23 +129,23 @@ public class TestList
      * Post-Condition: The listAdapter is empty and the size is 0.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#clear()
+     * @see myAdapter.ListAdapter#size()
      */
     @Test
-    public void testClearIsEmptySize()
+    public void testClearSize()
     {
         l1.add(argv[0]);
         l1.add(argv[1]);
-        assertEquals(false, l1.isEmpty());
+        assertEquals(2,l1.size());
         l1.add(argv[2]);
         assertEquals(3, l1.size());
         l1.clear();
         assertEquals(0, l1.size());
-        assertEquals(true, l1.isEmpty());
     }
 
     /**
      * Test case summary: test that the contains method is correctly working.
-     * @see myAdapter.ListAdapter#contains(java.lang.Object)
      * <br><br>
      * Test Case Design: The test case is designed to add some elements then verify that they are in the list.
      * <br> <br>
@@ -159,14 +156,13 @@ public class TestList
      * Post-Condition: The listAdapter contains all the elements added.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#contains(java.lang.Object)    
      */
     @Test
     public void testContains()
     {
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
         l1.add(null);
         assertEquals(true, l1.contains(argv[0]));
         assertEquals(true, l1.contains(argv[1]));
@@ -178,7 +174,6 @@ public class TestList
 
      /**
      * Test case summary: test that the remove method is correctly working.
-     * @see myAdapter.ListAdapter#remove(java.lang.Object)
      * <br><br>
      * Test Case Design: The test case is designed to add some elements then remove them one by one.
      * <br> <br>
@@ -189,6 +184,7 @@ public class TestList
      * Post-Condition: The listAdapter does not contain all the elements removed. There is one duplicate element and his presence is verified.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#remove(java.lang.Object)     
      */
     @Test
     public void TestRemove()
@@ -212,7 +208,6 @@ public class TestList
 
     /**
      * Test case summary: test that the isEmpty method is correctly working.
-     * @see myAdapter.ListAdapter#isEmpty()
      * <br><br>
      * Test Case Design: The test case is designed to test that after the constructor the list is empty and after adding some elements it is not empty, also after removing all the elements it is empty.
      * <br> <br>
@@ -223,26 +218,24 @@ public class TestList
      * Post-Condition: The isEmpty method return true if the list is empty and false if it is not.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#isEmpty()    
      */
     @Test
     public void testIsEmpty()
     {
         assertEquals(true, l1.isEmpty());
         for(int i=0; i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
+
         assertEquals(false, l1.isEmpty());
+
         for(int i=0; i<argv.length;i++)
-        {
             l1.remove(argv[i]);
-        }
         assertEquals(true, l1.isEmpty());
     }
 
     /**
      * Test case summary: test that the containsAll method is correctly working.
-     * @see myAdapter.ListAdapter#containsAll(HCollection)
      * <br><br>
      * Test Case Design: The test case is designed to test that that the containsAll method return true if the list contains all the elements of the other list and false if it does not.
      * <br> <br>
@@ -253,14 +246,14 @@ public class TestList
      * Post-Condition: The containsAll method return true if the list contains all the elements of the other list and false if it does not.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#containsAll(HCollection)     
      */
     @Test
     public void testContainsAll()
     {
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
+
         try {
             l1.containsAll(null);
             throw new Exception();
@@ -277,8 +270,6 @@ public class TestList
 
     /**
      * Test case summary: test that the addAll, toArray methods are correctly working.
-     * @see myAdapter.ListAdapter#addAll(HCollection)
-     * @see myAdapter.ListAdapter#toArray()
      * <br><br>
      * Test Case Design: The test case is designed to test that the size of the list is increased by the number of elements of the other list and that il toArray method return the correct array.
      * <br> <br>
@@ -289,6 +280,8 @@ public class TestList
      * Post-Condition: The addAll method add all the elements of the specified list.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#addAll(HCollection)
+     * @see myAdapter.ListAdapter#toArray()
      */
     @Test
     public void testAddAll()
@@ -303,9 +296,8 @@ public class TestList
         }
 
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
+        
         l2.add("Luca");
         l2.add("Giovanni");
         l2.add("Marco");
@@ -317,8 +309,6 @@ public class TestList
 
     /**
      * Test case summary: test that the retainAll, toArray methods are correctly working.
-     * @see myAdapter.ListAdapter#retainAll(HCollection)
-     * @see myAdapter.ListAdapter#toArray()
      * <br><br>
      * Test Case Design: The test case is designed to test that the list contains only the element of the second list.
      * <br> <br>
@@ -329,6 +319,8 @@ public class TestList
      * Post-Condition: The retainAll method remove all the elements that are in the first list but not in the second.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#retainAll(HCollection)
+     * @see myAdapter.ListAdapter#toArray()    
      */
     @Test
     public void testRetainAll()
@@ -343,24 +335,21 @@ public class TestList
         }
 
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
+
         l1.add("Luca");
         l1.add("Giovanni");
         l1.add("Marco");
         l1.add("Matteo");
         for(int i=0;i<argv.length;i++)
-        {
             l2.add(argv[i]);
-        }
+
         assertEquals(true, l1.retainAll(l2));
         assertArrayEquals(argv, l1.toArray());
     }
 
     /**
      * Test case summary: test that the indexOf method is correctly working.
-     * @see myAdapter.ListAdapter#indexOf(java.lang.Object)
      * <br><br>
      * Test Case Design: The test case is designed to test that the indexOf method return the correct index of the element(that is the index of the first occurrence of the element in the list).
      * <br> <br>
@@ -371,14 +360,14 @@ public class TestList
      * Post-Condition: The indexOf method return the correct index of the element.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#indexOf(java.lang.Object)    
      */
     @Test
     public void testIndexOf()
     {
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
+
         assertEquals(0, l1.indexOf("pippo"));
         assertEquals(2, l1.indexOf("pluto"));
         assertEquals(1, l1.indexOf("qui"));
@@ -387,7 +376,6 @@ public class TestList
 
     /**
      * Test case summary: test that the lastIndexOf method is correctly working.
-     * @see myAdapter.ListAdapter#lastIndexOf(java.lang.Object)
      * <br><br>
      * Test Case Design: The test case is designed to test that the lastIndexOf method return the correct index of the element(that is the index of the last occurrence of the element in the list).
      * <br> <br>
@@ -398,14 +386,13 @@ public class TestList
      * Post-Condition: The lastIndexOf method return the correct index of the element.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#lastIndexOf(java.lang.Object)
      */
     @Test
     public void testLastIndexOf()
     {
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
         assertEquals(0, l1.lastIndexOf("pippo"));
         assertEquals(2, l1.lastIndexOf("pluto"));
         assertEquals(4, l1.lastIndexOf("qui"));
@@ -414,8 +401,6 @@ public class TestList
 
     /**
      * Test case summary: test that the removeAll, toArray methods are correctly working.
-     * @see myAdapter.ListAdapter#removeAll(HCollection)
-     * @see myAdapter.ListAdapter#toArray()
      * <br><br>
      * Test Case Design: The test case is designed to test that after adding some elements to the list, then create a new list with a small group of the elements in the first list, then use the removeAll method to remove all the elements that are in the second list from the first.
      * <br> <br>
@@ -426,6 +411,8 @@ public class TestList
      * Post-Condition: The removeAll method remove all the elements that are in the second list from the first
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#removeAll(HCollection)
+     * @see myAdapter.ListAdapter#toArray()    
      */
     @Test
     public void testRemoveAll()
@@ -440,9 +427,8 @@ public class TestList
         }
 
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
+
         l2.add("pippo");
         l2.add("pluto");
         l1.add("pippo");//every duplicate is also removed.
@@ -453,7 +439,6 @@ public class TestList
 
     /**
      * Test case summary: test that the equals method is correctly working.
-     * @see myAdapter.ListAdapter#equals(java.lang.Object)
      * <br><br>
      * Test Case Design: The test case is designed to test that the list is equal to other lists with the same elements in the same order.
      * <br> <br>
@@ -464,18 +449,16 @@ public class TestList
      * Post-Condition: The three list are equals when they have same elements in the same order.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#equals(java.lang.Object)     
      */
     @Test
     public void testEquals()
     {
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
         for(int i=0;i<argv.length;i++)
-        {
             l2.add(argv[i]);
-        }
+
         HList l3=new ListAdapter();
         l3.addAll(l2);
 
@@ -484,15 +467,12 @@ public class TestList
         
         l3.clear();
         for(int i=argv.length-1; i>=0; i--)
-        {
             l3.add(argv[i]);
-        }
         assertEquals(false, l1.equals(l3));
     }
 
      /**
      * Test case summary: test that the hashCode method is correctly working.
-     * @see myAdapter.ListAdapter#hashCode()
      * <br><br>
      * Test Case Design: The test case is designed to test that two lists with same elements have the same hascode and that the hashcode of one list is the weighted sum of the elements hashcode.
      * <br> <br>
@@ -503,37 +483,28 @@ public class TestList
      * Post-Condition: The two list have the same hashcode if they have the same elements in the same order.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#hashCode()     
      */
     @Test
     public void testHashCode()
     {
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
         for(int i=0;i<argv.length;i++)
-        {
             l2.add(argv[i]);
-        }
         int hash=0;
         for(int i=0;i<argv.length;i++)
-        {
             hash+=argv[i].hashCode()*Math.pow(31, i);
-        }
         assertEquals(hash, l1.hashCode());
         assertEquals(l2.hashCode(), l1.hashCode());
-
         l2.clear();
         for(int i=argv.length-1; i>=0; i--)
-        {
             l2.add(argv[i]);
-        }
         assertNotEquals(l2.hashCode(), l1.hashCode());
     }
 
     /**
      * Test case summary: test that the toArray with parameters is correctly working.
-     * @see myAdapter.ListAdapter#toArray(Object[])
      * <br><br>
      * Test Case Design: The test case is designed to test that the toArray(Object[]) return the correct array
      * <br> <br>
@@ -544,6 +515,7 @@ public class TestList
      * Post-Condition: The array returned is correct.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#toArray(Object[])   
      */
     @Test
     public void testToArrayWithParameters()
@@ -567,7 +539,6 @@ public class TestList
     
     /**
      * Test case summary: test that the iterator is correctly working.
-     * @see myAdapter.ListAdapter#iterator()
      * <br><br>
      * Test Case Design: The test case is designed to add some elements then visit the list with the iterator. 
      * <br> <br>
@@ -578,24 +549,24 @@ public class TestList
      * Post-Condition: The iterator visit all the elements.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#iterator()
      */
     @Test
     public void TestIterator()
     {
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
-        HIterator iterator = l1.iterator();
-        assertEquals(argv[0], iterator.next());
-        assertEquals(argv[1], iterator.next());
-        assertEquals(argv[2], iterator.next());
-        assertEquals(argv[3], iterator.next());
-        assertEquals(argv[4], iterator.next());
-        assertEquals(argv[5], iterator.next());
-        assertEquals(false, iterator.hasNext());
-        try {
-            iterator.next();
+        li = l1.listIterator();
+        assertEquals(argv[0], li.next());
+        assertEquals(argv[1], li.next());
+        assertEquals(argv[2], li.next());
+        assertEquals(argv[3], li.next());
+        assertEquals(argv[4], li.next());
+        assertEquals(argv[5], li.next());
+        assertEquals(false, li.hasNext());
+        try
+        {
+            li.next();
             throw new Exception();
         } catch (Exception e) {
             assertEquals(NoSuchElementException.class, e.getClass());
@@ -604,11 +575,6 @@ public class TestList
 
     /**
      * Test case summary: test that the listIterator is correctly working.
-     * @see myAdapter.ListAdapter#listIterator()
-     * @see myAdapter.IteratorAdapter#next()
-     * @see myAdapter.IteratorAdapter#hasNext()
-     * @see myAdapter.IteratorAdapter#previous()
-     * @see myAdapter.IteratorAdapter#hasPrevious()
      * <br><br>
      * Test Case Design: The test case is designed to add some elements then visit the list with the listIterator. 
      * <br> <br>
@@ -620,14 +586,17 @@ public class TestList
      * Post-Condition: The listIterator visit all the elements forward and backwards.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see  myAdapter.ListAdapter#listIterator()
+     * @see  myAdapter.IteratorAdapter#next()
+     * @see  myAdapter.IteratorAdapter#hasNext()
+     * @see  myAdapter.IteratorAdapter#previous()
+     * @see  myAdapter.IteratorAdapter#hasPrevious()
      */
     @Test
     public void TestListIterator()
     {
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
         li= l1.listIterator();
         assertEquals(argv[0], li.next());
         assertEquals(argv[1], li.next());
@@ -636,7 +605,8 @@ public class TestList
         assertEquals(argv[4], li.next());
         assertEquals(argv[5], li.next());
         assertEquals(false, li.hasNext());
-        try{
+        try
+        {
             li.next();
             throw new Exception();
         }
@@ -652,7 +622,8 @@ public class TestList
         assertEquals(argv[1], li.previous());
         assertEquals(argv[0], li.previous());
         assertEquals(false, li.hasPrevious());
-        try{
+        try
+        {
             li.previous();
             throw new Exception();
         }
@@ -664,8 +635,6 @@ public class TestList
 
     /**
      * Test case summary: test that the listIterator set is correctly working.
-     * @see myAdapter.ListAdapter#listIterator()
-     * @see myAdapter.IteratorAdapter#set(java.lang.Object)
      * <br><br>
      * Test Case Design: The test case is designed to add some elements then use the set operation of the ListIterator to change them.
      * <br> <br>
@@ -677,14 +646,14 @@ public class TestList
      * Post-Condition: The listIterator set is correctly working.
      * <br><br>
      * Expected Results: Every assertion give positive result.
+     * @see myAdapter.ListAdapter#listIterator()
+     * @see myAdapter.IteratorAdapter#set(java.lang.Object)
      */
     @Test
     public void testListIteratorSet()
     {
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
         li=l1.listIterator();
         li.next();
         li.next();
@@ -710,8 +679,6 @@ public class TestList
 
     /** 
      * Test case summary: test that the listIterator add is correctly working.
-     * @see myAdapter.ListAdapter#listIterator()
-     * @see myAdapter.IteratorAdapter#add(java.lang.Object)
      * <br><br>
      * Test Case Design: The test case is designed to add some elements then use the add operation of the ListIterator to add another one.
      * <br> <br>
@@ -722,14 +689,14 @@ public class TestList
      * Post-Condition: The listIterator add is correctly working.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#listIterator()
+     * @see myAdapter.IteratorAdapter#add(java.lang.Object)
      */
     @Test 
     public void testListIteratorAdd()
     {
         for(int i=0;i<argv.length;i++)
-        {
             l1.add(argv[i]);
-        }
         li=l1.listIterator();
         li.next();
         li.add("Mondo");
@@ -740,13 +707,89 @@ public class TestList
         assertEquals("qui", li.next());
     }
 
+     /** 
+     * Test case summary: test that the listIterator remove is correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then use the ListIterator to remove some.
+     * <br> <br>
+     * Test Description: Some elements are inserted in the list. Then the listIterator is used to remove the first element. The presence of the element just removed is tested.
+     * After other remove operations are tested.
+     * Also it is tested that the remove operation can be done only after next/previous operation.
+     * <br><br>
+     * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
+     * <br> <br>
+     * Post-Condition: The listIterator remove is correctly working.
+     * <br><br>
+     * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#listIterator()
+     * @see myAdapter.IteratorAdapter#remove()     
+     */
+    @Test 
+    public void testListIteratorRemove()
+    {
+        for(int i=0;i<argv.length;i++)
+            l1.add(argv[i]);
+        li=l1.listIterator();
+        try 
+        {
+            li.remove();
+            throw new Exception();
+        } catch (Exception e) {
+            assertEquals(IllegalStateException.class, e.getClass());
+        }
+        li.next();
+        li.remove();
+        assertEquals(false, l1.contains("pippo"));
+        assertEquals(false, li.hasPrevious());
+        assertEquals("qui", li.next());
+        li.next();
+        li.remove();
+        assertEquals("qui",li.previous());
+        li.next();
+        assertEquals("paperino", li.next());
+    }
+
+     /** 
+     * Test case summary: test that the listIterator nextIndex, previousIndex are correctly working.
+     * <br><br>
+     * Test Case Design: The test case is designed to add some elements then verified if the nextIndex and previousIndex return the correct index.
+     * <br> <br>
+     * Test Description: Some elements are inserted in the list. Then the listIterator is used to test if call to nextIndex and previousIndex return the correct index.
+     * <br><br>
+     * Pre-Condition: The constructor is already invoked. The other methods that use this test are correctly working.
+     * <br> <br>
+     * Post-Condition: The listIterator nextIndex,previousIndex are correctly working.
+     * <br><br>
+     * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#listIterator()
+     * @see myAdapter.IteratorAdapter#nextIndex()
+     * @see myAdapter.IteratorAdapter#previousIndex()
+     */
+    @Test
+    public void testPreviousIndexNextIndex()
+    {
+        for(int i=0;i<argv.length;i++)
+            l1.add(argv[i]);
+        li=l1.listIterator();
+        assertEquals(-1, li.previousIndex());
+        for(int i=0; i<3;i++)
+            li.next();
+        assertEquals(2, li.previousIndex());
+        assertEquals(3, li.nextIndex());
+        li.next();
+        assertEquals(3, li.previousIndex());
+        assertEquals(4, li.nextIndex());
+        while(li.hasNext())
+            li.next();
+        assertEquals(argv.length, li.nextIndex());
+    }
+
     //#endregion
 
     //#region test forniti dal docente
 
     /**
      * Test case summary: test that the backing list operations are correctly working.
-     * @see myAdapter.ListAdapter#subList(int, int)
      * <br><br>
      * Test Case Design: The test case is designed to test that any structural operation in the subList is reflected on the fatherList.
      * <br> <br>
@@ -758,15 +801,16 @@ public class TestList
      * Post-Condition: The structural changes in the subList are reflected on the fatherList.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#subList(int, int)
      */
     @Test
 	public void testBacking()
 	{
 		System.out.println("TestBacking");
 		for(int i=0;i<argv.length;i++)
-		{
-			l1.add(argv[i]);
-		}
+		{	
+            l1.add(argv[i]);
+        }
 		System.out.println("List.toString() ? " + l1);
 
 		int dl0, dl1, dli, dsl0, dsl1, dsli;
@@ -821,6 +865,7 @@ public class TestList
      * Post-Condition: The subList have only the elements from the range specified.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#subList(int, int)
      */
     @Test
 	public void testRecursiveSublist()
@@ -868,12 +913,6 @@ public class TestList
 
     /**
      * Test case summary: test that the ListIterator remove, next,previous are correctly working.
-     * @see myAdapter.ListAdapter#ListIterator()
-     * @see myAdapter.IteratorAdapter#remove()
-     * @see myAdapter.IteratorAdapter#next()
-     * @see myAdapter.IteratorAdapter#previous()
-     * @see myAdapter.IteratorAdapter#hasNext()
-     * @see myAdapter.IteratorAdapter#hasPrevious()
      * <br><br>
      * Test Case Design: The test case is designed to test that the ListIterator operations function correctly.
      * <br> <br>
@@ -884,6 +923,12 @@ public class TestList
      * Post-Condition: The ListIterator visit and remove all of the elements.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#listIterator()
+     * @see myAdapter.IteratorAdapter#remove()
+     * @see myAdapter.IteratorAdapter#next()
+     * @see myAdapter.IteratorAdapter#previous()
+     * @see myAdapter.IteratorAdapter#hasNext()
+     * @see myAdapter.IteratorAdapter#hasPrevious()
      */
 	@Test
 	public void testIterator3()
@@ -916,12 +961,6 @@ public class TestList
 
     /**
      * Test case summary: test that the ListIterator remove is correctly working.
-     * @see myAdapter.ListAdapter#ListIterator()
-     * @see myAdapter.IteratorAdapter#remove()
-     * @see myAdapter.IteratorAdapter#next()
-     * @see myAdapter.IteratorAdapter#previous()
-     * @see myAdapter.IteratorAdapter#hasNext()
-     * @see myAdapter.IteratorAdapter#hasPrevious()
      * <br><br>
      * Test Case Design: The test case is designed to test that the ListIterator operation function correctly.
      * <br> <br>
@@ -932,6 +971,12 @@ public class TestList
      * Post-Condition: The ListIterator visit and remove all of the elements.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#listIterator()
+     * @see myAdapter.IteratorAdapter#remove()
+     * @see myAdapter.IteratorAdapter#next()
+     * @see myAdapter.IteratorAdapter#previous()
+     * @see myAdapter.IteratorAdapter#hasNext()
+     * @see myAdapter.IteratorAdapter#hasPrevious()
      */
 	@Test
 	public void testIterator2()
@@ -961,12 +1006,6 @@ public class TestList
 
     /**
      * Test case summary: test that the ListIterator remove is correctly working.
-     * @see myAdapter.ListAdapter#ListIterator(int)
-     * @see myAdapter.IteratorAdapter#remove()
-     * @see myAdapter.IteratorAdapter#next()
-     * @see myAdapter.IteratorAdapter#previous()
-     * @see myAdapter.IteratorAdapter#hasNext()
-     * @see myAdapter.IteratorAdapter#hasPrevious()
      * <br><br>
      * Test Case Design: The test case is designed to test that the ListIterator visit all the elements backwards and it removed them correctly.
      * <br> <br>
@@ -977,6 +1016,12 @@ public class TestList
      * Post-Condition: The ListIterator visit all of the elements and remove them.
      * <br><br>
      * Expected Results: Every assertions in this method give positive result.
+     * @see myAdapter.ListAdapter#listIterator(int)
+     * @see myAdapter.IteratorAdapter#remove()
+     * @see myAdapter.IteratorAdapter#next()
+     * @see myAdapter.IteratorAdapter#previous()
+     * @see myAdapter.IteratorAdapter#hasNext()
+     * @see myAdapter.IteratorAdapter#hasPrevious()
      */
 	@Test
 	public void testIterator1()
