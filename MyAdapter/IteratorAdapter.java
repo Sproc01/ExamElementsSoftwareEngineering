@@ -159,6 +159,5 @@ public class IteratorAdapter implements HListIterator,HIterator
             list.set(index-1, o);
         else
             list.set(index, o);
-        //nextLast=false;
     }
 }

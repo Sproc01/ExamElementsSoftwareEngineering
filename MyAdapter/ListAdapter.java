@@ -98,7 +98,7 @@ public class ListAdapter implements HList, HCollection
 
     /**
      * Removes all of the elements from this list. 
-     * This list will be empty after this method returns unless it throws an exception.
+     * This list will be empty after this method ends.
      * @see {@link HList#clear()} 
      */
     public void clear()
@@ -278,7 +278,7 @@ public class ListAdapter implements HList, HCollection
 
     /**
      * Removes from this list all of its elements that are contained in the specified collection.
-     * If an element to be removed is present more than once, it is removed once.
+     * If an element to be removed is present more than once, every copy of the element is removed.
      * If an element to be removed is not present in this list, it will be ignored.
      * @param c collection containing elements to be removed from this list.
      * @return true if this list changed as a result of the call.
@@ -362,7 +362,7 @@ public class ListAdapter implements HList, HCollection
      * Any operation that expects a list can be used as a range operation by passing a subList view instead of a whole list. 
      * For example, the following idiom removes a range of elements from a list:
      * list.subList(from, to).clear(); Similar idioms may be constructed for indexOf and lastIndexOf, and all of the algorithms in the Collections class can be applied to a subList. 
-     * Structural changes to the list (adding and removing elements) that are not performed through the returned list won't have effect on the subList.
+     * Structural changes to the list (adding and removing elements) that are not performed through the returned list won't have effect on the subList. In fact the subList state depends on the operation invoked on the fatherList.
      * @param fromIndex index of the first element to be copied.
      * @param toIndex index after the last element to be copied.
      * @return a HList containing the elements in the specified range from this list.
