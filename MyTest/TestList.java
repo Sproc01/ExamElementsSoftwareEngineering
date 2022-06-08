@@ -501,7 +501,15 @@ public class TestList
      * <br><br>
      * Test Case Design: The test case is designed to test that two lists with the same elements have the same hascode and that the hashcode of one list is the weighted sum of the elements hashcode.
      * <br> <br>
-     * Test Description: It adds some elements to two lists, then compare their hashcode. Also it verifies that the hashcode is the weighted sum of the elements hashcode.
+     * Test Description: It adds some elements to two lists, then compare their hashcode. Also it verifies that the hashcode is the result of this algorithm
+     * <pre>
+     * hashCode = 1;
+     * Iterator i = list.iterator();
+     * while (i.hasNext()) {
+     *     Object obj = i.next();
+     *     hashCode = 31 * hashCode + (obj == null ? 0 : obj.hashCode());
+     * }
+     * </pre>
      * <br> <br>
      * Pre-Condition: The constructor is already invoked. The other methods used by this test are correctly working.
      * <br> <br>
@@ -517,14 +525,18 @@ public class TestList
             l1.add(argv[i]);
         for(int i=0;i<argv.length;i++)
             l2.add(argv[i]);
-        int hash=0;
-        for(int i=0;i<argv.length;i++)
-            hash+=argv[i].hashCode()*Math.pow(31, i);
-        assertEquals(hash, l1.hashCode());
+        int hashCode=1;
+        li = l1.listIterator();
+        while (li.hasNext()) 
+        {
+           Object obj = li.next();
+           hashCode = 31 * hashCode + (obj == null ? 0 : obj.hashCode());
+        }
+        assertEquals(hashCode, l1.hashCode());
         assertEquals(l2.hashCode(), l1.hashCode());
         l2.clear();
-        for(int i=argv.length-1; i>=0; i--)
-            l2.add(argv[i]);
+        for(int j=argv.length-1; j>=0; j--)
+            l2.add(argv[j]);
         assertNotEquals(l2.hashCode(), l1.hashCode());
     }
 

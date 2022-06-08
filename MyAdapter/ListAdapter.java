@@ -169,15 +169,14 @@ public class ListAdapter implements HList, HCollection
      */
     public int hashCode()
     {
-        int hash=0;
-        int i=0;
-        for(Enumeration<Object> e=v.elements(); e.hasMoreElements();)
-        {   
-            if(e!=null)
-                hash+=e.nextElement().hashCode()*Math.pow(31, i);
-            i++;
+        int hashCode = 1;
+        HIterator i = this.iterator();
+        while (i.hasNext()) 
+        {
+           Object obj = i.next();
+           hashCode = 31 * hashCode + (obj == null ? 0 : obj.hashCode());
         }
-        return hash;
+        return hashCode;
     }
 
     /**
