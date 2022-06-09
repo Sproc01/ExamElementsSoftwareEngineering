@@ -86,7 +86,7 @@ public class TestList
      */
     @Test
     public void testInitialize()
-    {assertNotNull(l1);}
+    {assertNotNull("After the constructor the list is null",l1);}
 
     /**
      * Test case summary: test that the add method and get method are correctly working.
@@ -107,13 +107,13 @@ public class TestList
     public void testAdd()
     {
         l1.add(0,argv[0]);
-        assertEquals("pippo", l1.get(0));
+        assertEquals("Add with index doesn't function correctly","pippo", l1.get(0));
         l1.add(1,argv[1]);
-        assertEquals("qui", l1.get(1));
+        assertEquals("Add with index doesn't function correctly", "qui", l1.get(1));
         l1.add(2,argv[2]);
-        assertEquals("pluto", l1.get(2));
+        assertEquals("Add with index doesn't function correctly","pluto", l1.get(2));
         l1.add(argv[3]);
-        assertEquals("paperino", l1.get(3));
+        assertEquals("Add without index doesn't function correctly","paperino", l1.get(3));
     }
 
     /**
@@ -140,7 +140,7 @@ public class TestList
         l1.add(argv[2]);
         assertEquals(3, l1.size());
         l1.clear();
-        assertEquals(0, l1.size());
+        assertEquals("Clear method is not working correctly", 0, l1.size());
     }
 
     /**
@@ -163,12 +163,12 @@ public class TestList
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
         l1.add(null);
-        assertEquals(true, l1.contains(argv[0]));
-        assertEquals(true, l1.contains(argv[1]));
-        assertEquals(true, l1.contains(argv[2]));
-        assertEquals(true, l1.contains(argv[3]));
-        assertEquals(true, l1.contains(null));
-        assertEquals(false, l1.contains("Mondo"));
+        assertEquals("Contains does not function correctly",true, l1.contains(argv[0]));
+        assertEquals("Contains does not function correctly",true, l1.contains(argv[1]));
+        assertEquals("Contains does not function correctly",true, l1.contains(argv[2]));
+        assertEquals("Contains does not function correctly",true, l1.contains(argv[3]));
+        assertEquals("Contains does not function correctly",true, l1.contains(null));
+        assertEquals("Contains does not function correctly",false, l1.contains("Mondo"));
         assertEquals((argv.length+1), l1.size());
     }
 
@@ -195,15 +195,15 @@ public class TestList
         l1.add(argv[3]);
         l1.add(argv[3]);
         l1.remove(argv[3]);
-        assertEquals(true, l1.contains(argv[3]));//there is the duplicate one
+        assertEquals("Remove doesn't function correclty",true, l1.contains(argv[3]));//there is the duplicate one
         assertEquals(4, l1.size());
         l1.remove(argv[1]);
         l1.remove(null);
-        assertEquals(false, l1.contains(argv[1]));
-        assertEquals(3, l1.size());
+        assertEquals("Remove doesn't function correclty", false, l1.contains(argv[1]));
+        assertEquals("Remove doesn't function correclty",3, l1.size());
         l1.remove(argv[2]);
-        assertEquals(false, l1.contains(argv[2]));
-        assertEquals(2, l1.size());
+        assertEquals("Remove doesn't function correclty",false, l1.contains(argv[2]));
+        assertEquals("Remove doesn't function correclty",2, l1.size());
     }
 
     /**
@@ -227,11 +227,11 @@ public class TestList
         for(int i=0; i<argv.length;i++)
             l1.add(argv[i]);
 
-        assertEquals(false, l1.isEmpty());
+        assertEquals("isEmpty doesn't function correclty",false, l1.isEmpty());
 
         for(int i=0; i<argv.length;i++)
             l1.remove(argv[i]);
-        assertEquals(true, l1.isEmpty());
+        assertEquals("isEmpty doesn't function correclty",true, l1.isEmpty());
     }
 
     /**
@@ -259,14 +259,14 @@ public class TestList
             l1.containsAll(null);
             throw new Exception();
         } catch (Exception e) {
-            assertEquals(NullPointerException.class, e.getClass());
+            assertEquals("ContainsAll doesn't throw NullPointerException", NullPointerException.class, e.getClass());
         }
         l2.add(argv[0]);
         l2.add(argv[1]);
         l2.add(argv[2]);
-        assertEquals(true, l1.containsAll(l2));
+        assertEquals("ContainsAll doesn't function correctly", true, l1.containsAll(l2));
         l2.add("test");
-        assertEquals(false, l1.containsAll(l2));
+        assertEquals("ContainsAll doesn't function correctly", false, l1.containsAll(l2));
     }
 
     /**
@@ -290,7 +290,7 @@ public class TestList
         assertArrayEquals(new Object[]{}, l1.toArray());
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
-        assertArrayEquals(new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
+        assertArrayEquals("toArray return a wrong array",new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
     }
 
     /**
@@ -328,8 +328,8 @@ public class TestList
         l2.add("Marco");
         l2.add("Matteo");
         l1.addAll(l2);
-        assertEquals(10, l1.size());
-        assertArrayEquals(new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio","Luca","Giovanni","Marco","Matteo"}, l1.toArray());
+        assertEquals("addAll method doesn't increase size",10, l1.size());
+        assertArrayEquals("addAll method doesn't add the elements in the right order",new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio","Luca","Giovanni","Marco","Matteo"}, l1.toArray());
     }
 
     /**
@@ -369,8 +369,8 @@ public class TestList
         for(int i=0;i<argv.length;i++)
             l2.add(argv[i]);
 
-        assertEquals(true, l1.retainAll(l2));
-        assertArrayEquals(argv, l1.toArray());
+        assertEquals("The retainAll method return false instead of true",true, l1.retainAll(l2));
+        assertArrayEquals("The array returned by toArray after the retainAll method is wrong", argv, l1.toArray());
     }
 
     /**
@@ -393,10 +393,10 @@ public class TestList
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
 
-        assertEquals(0, l1.indexOf("pippo"));
-        assertEquals(2, l1.indexOf("pluto"));
-        assertEquals(1, l1.indexOf("qui"));
-        assertEquals(-1, l1.indexOf("Mondo"));
+        assertEquals("IndexOf return the wrong index",0, l1.indexOf("pippo"));
+        assertEquals("IndexOf return the wrong index",2, l1.indexOf("pluto"));
+        assertEquals("IndexOf return the wrong index",1, l1.indexOf("qui"));
+        assertEquals("IndexOf doesn't return -1 if the list doesn't contain the element",-1, l1.indexOf("Mondo"));
     }
 
     /**
@@ -418,10 +418,10 @@ public class TestList
     {
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
-        assertEquals(0, l1.lastIndexOf("pippo"));
-        assertEquals(2, l1.lastIndexOf("pluto"));
-        assertEquals(4, l1.lastIndexOf("qui"));
-        assertEquals(-1, l1.lastIndexOf("Mondo"));
+        assertEquals("LastIndexOf return the wrong index",0, l1.lastIndexOf("pippo"));
+        assertEquals("LastIndexOf return the wrong index",2, l1.lastIndexOf("pluto"));
+        assertEquals("LastIndexOf return the wrong index",4, l1.lastIndexOf("qui"));
+        assertEquals("LastIndexOf doesn't return -1 if the list doesn't contain the element",-1, l1.lastIndexOf("Mondo"));
     }
 
     /**
@@ -458,8 +458,8 @@ public class TestList
         l2.add("pluto");
         l1.add("pippo");//every duplicate is also removed.
         l1.removeAll(l2);
-        assertEquals(4, l1.size());
-        assertArrayEquals(new Object[]{"qui", "paperino", "qui", "ciccio"}, l1.toArray());
+        assertEquals("The size isn't correct after the removeAll",4, l1.size());
+        assertArrayEquals("The array returned by toArray after the removeAll method is wrong", new Object[]{"qui", "paperino", "qui", "ciccio"}, l1.toArray());
     }
 
     /**
@@ -487,13 +487,13 @@ public class TestList
         HList l3=new ListAdapter();
         l3.addAll(l2);
 
-        assertEquals(true, l3.equals(l2));
-        assertEquals(true, l1.equals(l2));
+        assertEquals("Lists with the same element are not equal",true, l3.equals(l2));
+        assertEquals("Lists with the same element are not equal",true, l1.equals(l2));
         
         l3.clear();
         for(int i=argv.length-1; i>=0; i--)
             l3.add(argv[i]);
-        assertEquals(false, l1.equals(l3));
+        assertEquals("List with some elements is equals to an empty list",false, l1.equals(l3));
     }
 
      /**
@@ -532,12 +532,12 @@ public class TestList
            Object obj = li.next();
            hashCode = 31 * hashCode + (obj == null ? 0 : obj.hashCode());
         }
-        assertEquals(hashCode, l1.hashCode());
-        assertEquals(l2.hashCode(), l1.hashCode());
+        assertEquals("Two lists with the same elements have different hashcode", hashCode, l1.hashCode());
+        assertEquals("Two lists with the same elements have different hashcode",l2.hashCode(), l1.hashCode());
         l2.clear();
         for(int j=argv.length-1; j>=0; j--)
             l2.add(argv[j]);
-        assertNotEquals(l2.hashCode(), l1.hashCode());
+        assertNotEquals("The list with some elements have the same hashcode of an empty list",l2.hashCode(), l1.hashCode());
     }
 
     /**
@@ -568,10 +568,15 @@ public class TestList
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
 
-        assertArrayEquals(new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray(a));
+        assertArrayEquals("The toArray(Object[]) doesn't return the correct array", new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray(a));
         a=new Object[6];
-        assertArrayEquals(new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray(a));
-        assertArrayEquals(new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, a);
+        assertArrayEquals("The toArray(Object[]) doesn't return the correct array", new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray(a));
+        assertArrayEquals("The toArray(Object[]) doesn't modify the array passed", new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio"}, a);
+        a=new Object[8];
+        a[7]="50";
+        a[6]="20";
+        assertArrayEquals("The toArray(Object[]) doesn't return the correct array",new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio", null, "50"}, l1.toArray(a));
+        assertArrayEquals("The toArray(Object[]) doesn't modify the array passed",new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio", null, "50"}, a);
     }
 
     //#endregion
@@ -597,8 +602,8 @@ public class TestList
     {
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
-        li = l1.listIterator();
-        assertEquals(argv[0], li.next());
+        HIterator li = l1.listIterator();
+        assertEquals("The iterator next operation doesn't return the right element",argv[0], li.next());
         assertEquals(argv[1], li.next());
         assertEquals(argv[2], li.next());
         assertEquals(argv[3], li.next());
@@ -610,7 +615,7 @@ public class TestList
             li.next();
             throw new Exception();
         } catch (Exception e) {
-            assertEquals(NoSuchElementException.class, e.getClass());
+            assertEquals("At the end of the list the next operation of the iterator doesn't throw NoSuchElementException",NoSuchElementException.class, e.getClass());
         }
     }
 
@@ -639,13 +644,13 @@ public class TestList
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
         li= l1.listIterator();
-        assertEquals(argv[0], li.next());
-        assertEquals(argv[1], li.next());
-        assertEquals(argv[2], li.next());
-        assertEquals(argv[3], li.next());
-        assertEquals(argv[4], li.next());
-        assertEquals(argv[5], li.next());
-        assertEquals(false, li.hasNext());
+        assertEquals("The ListIterator next operation doesn't return the right element", argv[0], li.next());
+        assertEquals("The ListIterator next operation doesn't return the right element",argv[1], li.next());
+        assertEquals("The ListIterator next operation doesn't return the right element",argv[2], li.next());
+        assertEquals("The ListIterator next operation doesn't return the right element",argv[3], li.next());
+        assertEquals("The ListIterator next operation doesn't return the right element",argv[4], li.next());
+        assertEquals("The ListIterator next operation doesn't return the right element",argv[5], li.next());
+        assertEquals("At the end of the list the ListIterator hasNext return true instead of false",false, li.hasNext());
         try
         {
             li.next();
@@ -653,16 +658,16 @@ public class TestList
         }
         catch(Exception e)
         {
-            assertEquals(NoSuchElementException.class, e.getClass());
+            assertEquals("The ListIterator next operation when it is at the the end of the list doesn't throw NoSuchElementException",NoSuchElementException.class, e.getClass());
         }
-        assertEquals(true, li.hasPrevious());
-        assertEquals(argv[5], li.previous());
-        assertEquals(argv[4], li.previous());
-        assertEquals(argv[3], li.previous());
-        assertEquals(argv[2], li.previous());
-        assertEquals(argv[1], li.previous());
-        assertEquals(argv[0], li.previous());
-        assertEquals(false, li.hasPrevious());
+        assertEquals("At the end of the list the ListIterator hasPrevious return false instead of true", true, li.hasPrevious());
+        assertEquals("The ListIterator previous operation doesn't return the right element",argv[5], li.previous());
+        assertEquals("The ListIterator previous operation doesn't return the right element", argv[4], li.previous());
+        assertEquals("The ListIterator previous operation doesn't return the right element", argv[3], li.previous());
+        assertEquals("The ListIterator previous operation doesn't return the right element", argv[2], li.previous());
+        assertEquals("The ListIterator previous operation doesn't return the right element", argv[1], li.previous());
+        assertEquals("The ListIterator previous operation doesn't return the right element",argv[0], li.previous());
+        assertEquals("At the beginning of the list the ListIterator hasPrevious return true instead of false",false, li.hasPrevious());
         try
         {
             li.previous();
@@ -670,7 +675,7 @@ public class TestList
         }
         catch(Exception e)
         {
-            assertEquals(NoSuchElementException.class, e.getClass());
+            assertEquals("The ListIterator previous operation when it is at the the beginning of the list doesn't throw NoSuchElementException",NoSuchElementException.class, e.getClass());
         }
     }
 
@@ -699,10 +704,10 @@ public class TestList
         li.next();
         li.next();
         li.set("Mondo");
-        assertEquals(true, l1.contains("Mondo"));
-        assertArrayEquals(new Object[]{"pippo", "Mondo", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
+        assertEquals("The ListIterator set doesn't set the element",true, l1.contains("Mondo"));
+        assertArrayEquals("The ListIterator set doesn't set the right element",new Object[]{"pippo", "Mondo", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
         li.set("Ciao");
-        assertArrayEquals(new Object[]{"pippo", "Ciao", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
+        assertArrayEquals("The ListIterator set doesn't set the right element", new Object[]{"pippo", "Ciao", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
         li.add("qui");
         try 
         {
@@ -710,12 +715,11 @@ public class TestList
             throw new Exception();
         } catch (Exception e) 
         {
-            assertEquals(IllegalStateException.class, e.getClass());
+            assertEquals("After an add operation set doesn't throw IllegalStateException", IllegalStateException.class, e.getClass());
         }
-        assertArrayEquals(new Object[]{"pippo", "Ciao", "qui", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
-        assertEquals("qui",li.previous());
+        li.previous();
         li.set("M");
-        assertArrayEquals(new Object[]{"pippo", "Ciao", "M", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
+        assertArrayEquals("The ListIterator set doesn't set the right element", new Object[]{"pippo", "Ciao", "M", "pluto", "paperino", "qui", "ciccio"}, l1.toArray());
     }
 
     /** 
@@ -741,11 +745,11 @@ public class TestList
         li=l1.listIterator();
         li.next();
         li.add("Mondo");
-        assertEquals(true, l1.contains("Mondo"));
-        assertEquals("Mondo", li.previous());
+        assertEquals("The add didn't add the element",true, l1.contains("Mondo"));
+        assertEquals("The add didn't insert the element in the right position", "Mondo", li.previous());
         li.next();//cursor goes backwards to test the previous element, this call cancels the call to previous.
         //so the next element after the add operation is tested.
-        assertEquals("qui", li.next());
+        assertEquals("The add didn't insert the element in the right position", "qui", li.next());
     }
 
      /** 
@@ -780,14 +784,14 @@ public class TestList
         }
         li.next();
         li.remove();
-        assertEquals(false, l1.contains("pippo"));
-        assertEquals(false, li.hasPrevious());
-        assertEquals("qui", li.next());
+        assertEquals("The ListIterator remove didn't remove the element",false, l1.contains("pippo"));
+        assertEquals("At the beginning of the list the ListIterator hasPrevious return true instead of false after the remove of the first element by the ListIterator", false, li.hasPrevious());
+        assertEquals("The next operation after removing the first element doesn't fucntion correctly","qui", li.next());
         li.next();
         li.remove();
-        assertEquals("qui",li.previous());
+        assertEquals("The previous operation after removing an element with ListIterator remove doesn't function correctly", "qui",li.previous());
         li.next();
-        assertEquals("paperino", li.next());
+        assertEquals("The next operation after removing an element with ListIterator remove doesn't function correctly","paperino", li.next());
     }
 
      /** 
@@ -812,17 +816,17 @@ public class TestList
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
         li=l1.listIterator();
-        assertEquals(-1, li.previousIndex());
+        assertEquals("ListIterator previousIndex doesn't return -1 when it is at the beginning of the list",-1, li.previousIndex());
         for(int i=0; i<3;i++)
             li.next();
-        assertEquals(2, li.previousIndex());
-        assertEquals(3, li.nextIndex());
+        assertEquals("ListIterator previousIndex doesn't return the rigth index", 2, li.previousIndex());
+        assertEquals("ListIterator nextIndex doesn't return the right index",3, li.nextIndex());
         li.next();
-        assertEquals(3, li.previousIndex());
-        assertEquals(4, li.nextIndex());
+        assertEquals("ListIterator previousIndex doesn't return the rigth index",3, li.previousIndex());
+        assertEquals("ListIterator nextIndex doesn't return the right index",4, li.nextIndex());
         while(li.hasNext())
             li.next();
-        assertEquals(argv.length, li.nextIndex());
+        assertEquals("ListIterator nextIndex doesn't return list.size() when it is at the end of the list",l1.size(), li.nextIndex());
     }
 
     //#endregion

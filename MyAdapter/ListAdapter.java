@@ -2,6 +2,8 @@ package myAdapter;
 
 import java.util.Enumeration;
 
+import javax.lang.model.util.ElementScanner14;
+
 /**
  * A class implementing interface HList and HCollection. It supports duplicate and null elements.
  * @author Michele Sprocatti
@@ -65,10 +67,13 @@ public class ListAdapter implements HList, HCollection
         if(c==null)
             throw new NullPointerException();
         Object[] o=c.toArray();
+        boolean res=false;
         for(int i=0; i<o.length; i++)
             if(!add(o[i]))
                 return false;
-        return true;
+            else 
+                res=true;
+        return res;
     }
 
     /**
@@ -88,12 +93,16 @@ public class ListAdapter implements HList, HCollection
         if(index<0 || index>size())
             throw new IndexOutOfBoundsException();
         Object[] o=c.toArray();
-        for(int i=0; i<o.length; i++)
+        int i=0;
+        for(i=0; i<o.length; i++)
         {
             add(index, o[i]);
             index++;
         }
-        return true;
+        if(i>0)
+            return true;
+        else
+            return false;
     }
 
     /**
@@ -315,7 +324,7 @@ public class ListAdapter implements HList, HCollection
         Object[] o=toArray();
         for(int i=0; i<o.length; i++)
             if(!c.contains(o[i]))
-            { 
+            {
                remove(o[i]);
                res=true;
             }
@@ -407,8 +416,11 @@ public class ListAdapter implements HList, HCollection
             throw new NullPointerException();
         if(a.length<size())
             a = new Object[size()];
-        for(int i=0; i<size(); i++)
+        int i=0;
+        for(i=0; i<size(); i++)
             a[i]=v.elementAt(i);
+        if(i<a.length)
+            a[i]=null;
         return a;
     }
 
@@ -475,7 +487,7 @@ public class ListAdapter implements HList, HCollection
         {
             int sz=size();
             for(int i=0; i<sz; i++)
-                father.remove(i+fromIndex); 
+                father.remove(get(i)); 
             super.clear();
         }
         
@@ -508,25 +520,6 @@ public class ListAdapter implements HList, HCollection
             if(i!=-1)
                 father.remove(i+fromIndex);
             return super.remove(o);
-        }
-        
-        /**
-         * Removes from this list all of its elements that are not contained in the specified collection.
-         * If an element is contained in the specified collection but not in the list this method won't add it.
-         * Also it will do the same operation in the father list.
-         * @param c collection containing elements to be retained in this list, if present.
-         * @return true if this list changed as a result of the call.
-         * @exception NullPointerException if the specified collection is null.
-         */
-        public boolean retainAll(HCollection c)
-        {
-            int sz=size();
-            for(int i=0; i<sz; i++)
-            {
-                if(!c.contains(get(i)))
-                    father.remove(i+fromIndex);
-            }
-            return super.retainAll(c);
         }
 
         /**
