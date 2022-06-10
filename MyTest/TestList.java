@@ -402,7 +402,7 @@ public class TestList
             assertEquals(NullPointerException.class, e.getClass());
         }
 
-        assertEquals("Retain an empty list using retainAll return true instead of false",false, l1.addAll(l2));
+        assertEquals("Retain an empty list using retainAll return true instead of false",false, l1.retainAll(l2));
 
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
@@ -497,7 +497,7 @@ public class TestList
             assertEquals(NullPointerException.class, e.getClass());
         }
 
-        assertEquals("Removing an empty list using removeAll return true instead of false",false, l1.addAll(l2));
+        assertEquals("Removing an empty list using removeAll return true instead of false",false, l1.removeAll(l2));
 
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
