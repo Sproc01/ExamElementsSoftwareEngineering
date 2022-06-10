@@ -4,9 +4,6 @@ import myAdapter.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.*;
-
-import java.beans.Transient;
-import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 /**

@@ -1,9 +1,5 @@
 package myAdapter;
 
-import java.util.Enumeration;
-
-import javax.lang.model.util.ElementScanner14;
-
 /**
  * A class implementing interface HList and HCollection. It supports duplicate and null elements.
  * @author Michele Sprocatti
