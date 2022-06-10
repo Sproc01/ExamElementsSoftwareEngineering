@@ -7,7 +7,7 @@ import org.junit.runner.notification.Failure;
 
 /**
  * Class that run {@link TestList}.
- * It is the class that contains all the test for {@link myAdapter.ListAdapter}.
+ * It runs the class that contains all the test for {@link myAdapter.ListAdapter}.
  * @version JUnit 4.13
  * @version Harmcrest: 1.3
  * @version JVM from JME CLDC 1.1

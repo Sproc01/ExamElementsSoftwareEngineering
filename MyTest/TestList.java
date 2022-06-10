@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import java.beans.Transient;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -270,7 +271,7 @@ public class TestList
     }
 
     /**
-     * Test case summary: test that the addAll method is correctly working.
+     * Test case summary: test that the toArray method is correctly working.
      * <br><br>
      * Test Case Design: The test case is designed to test that toArray is correctly working when the size is 0 and when is not 0.
      * <br> <br>
@@ -285,7 +286,7 @@ public class TestList
      * @see myAdapter.ListAdapter#toArray()
      */
     @Test
-    public void testToArray()
+    public void testToArrayWithoutArgument()
     {
         assertArrayEquals(new Object[]{}, l1.toArray());
         for(int i=0;i<argv.length;i++)
@@ -294,18 +295,21 @@ public class TestList
     }
 
     /**
-     * Test case summary: test that the addAll method is correctly working.
+     * Test case summary: test that the addAll methods are correctly working.
      * <br><br>
-     * Test Case Design: The test case is designed to test that the size of the list is increased by the number of elements of the other list. So the element are added correctly.
+     * Test Case Design: The test case is designed to test that the size of the list is increased by the number of elements of the other list. And it tests that the element are added correctly.
      * <br> <br>
      * Test Description: After adding some elements to the list and then adding others to another list, it use the addAll method to add every element of the second list in the first list.
-     * Also it tests that if the addAll method is invoked with a null parameter the method throws a NullPointerException.
+     * Also it tests:<br>
+     * -if the addAll method is invoked with a null parameter the method throws a NullPointerException.<br>
+     * -The addAll method must return false if it is invoked with an empty list.<br>
+     * It is also tested the addAll(int, HCollection) method with two calls using a wrong index to test the INdexOutOfBoundExcpetion and then with a correct index to test if it inserts the element in the right position.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked. The other methods used by this test are correctly working.
      * <br> <br>
      * Post-Condition: The list contains the element added before and the element added using the addAll method.
      * <br><br>
-     * Expected Results: The addAll method add all the elements of the specified list.
+     * Expected Results: The addAll(HCollection) method add all the elements of the specified list. The addAll(int, HCollection) add all elements in the right position.
      * @see myAdapter.ListAdapter#addAll(HCollection)
      */
     @Test
@@ -320,6 +324,8 @@ public class TestList
             assertEquals(NullPointerException.class, e.getClass());
         }
 
+        assertEquals("Adding an empty list using addAll return true instead of false",false, l1.addAll(l2));
+
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
         
@@ -330,6 +336,42 @@ public class TestList
         l1.addAll(l2);
         assertEquals("addAll method doesn't increase size",10, l1.size());
         assertArrayEquals("addAll method doesn't add the elements in the right order",new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio","Luca","Giovanni","Marco","Matteo"}, l1.toArray());
+
+        try 
+        {
+            l1.addAll(-1,l2);
+            throw new Exception();
+        } catch (Exception e) 
+        {
+            assertEquals(IndexOutOfBoundsException.class, e.getClass());
+        }
+
+        try 
+        {
+            l1.addAll(0,null);
+            throw new Exception();
+        } catch (Exception e) 
+        {
+            assertEquals(NullPointerException.class, e.getClass());
+        }
+
+        try 
+        {
+            l1.addAll(l1.size()+1,l2);
+            throw new Exception();
+        } catch (Exception e) 
+        {
+            assertEquals(IndexOutOfBoundsException.class, e.getClass());
+        }
+
+        l1.addAll(2,l2);
+        assertEquals("addAll with index method doesn't increase size",14, l1.size());
+        assertArrayEquals("addAll method doesn't add the elements in the right order",new Object[]{"pippo", "qui","Luca","Giovanni","Marco","Matteo", "pluto", "paperino", "qui", "ciccio","Luca","Giovanni","Marco","Matteo"}, l1.toArray());
+
+        l1.clear();
+        l1.addAll(0, l2);
+        assertEquals("addAll method doesn't increase size",4, l1.size());
+        assertArrayEquals("addAll method doesn't add the elements in the right order",new Object[]{"Luca","Giovanni","Marco","Matteo"}, l1.toArray());
     }
 
     /**
@@ -339,6 +381,7 @@ public class TestList
      * <br> <br>
      * Test Description: After adding some elements to one list, a small group of elements are added in a second list, then it tests that the retainAll method remove only the elements that are in the firt list but not in the second.
      * It will invoke also the retainAll method with a null parameter to verify that it will launch NullPointerException.
+     * The retainAll method is invoked also with an empty list and it is tested that return false.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked. The other methods used by this test are correctly working.
      * <br> <br>
@@ -358,6 +401,8 @@ public class TestList
         {
             assertEquals(NullPointerException.class, e.getClass());
         }
+
+        assertEquals("Retain an empty list using retainAll return true instead of false",false, l1.addAll(l2));
 
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
@@ -429,7 +474,8 @@ public class TestList
      * <br><br>
      * Test Case Design: The test case is designed to test that the removeAll method is correctly working.
      * <br> <br>
-     * Test Description: The removeAll method is invoked with a null parameter to test the throw of NullPointerException. 
+     * Test Description: The removeAll method is invoked with a null parameter to test the throw of NullPointerException.
+     * The removeAll method is invoked also with an empty list and it is tested that return false.
      * Then it adds elements to two list; in the second are added a subset of the elements of the first list, then it uses the removeAll method to remove the elements that are in the second list from the first list.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked. The other methods used by this test are correctly working.
@@ -450,6 +496,8 @@ public class TestList
         {
             assertEquals(NullPointerException.class, e.getClass());
         }
+
+        assertEquals("Removing an empty list using removeAll return true instead of false",false, l1.addAll(l2));
 
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
@@ -579,10 +627,154 @@ public class TestList
         assertArrayEquals("The toArray(Object[]) doesn't modify the array passed",new Object[]{"pippo", "qui", "pluto", "paperino", "qui", "ciccio", null, "50"}, a);
     }
 
+    /**
+     * Test case summary: Test that the subList method manages correctly the index passed. And the subList contains only the element in the correctly range.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that the subList throw IndexOutOfBoundException when it is expected, and not when it is not expected.
+     * <br> <br>
+     * Test Description: It invokes two times the subList method:<br>
+     * -One with an invalid fromIndex<br>
+     * -One with an invalid toIndex<br>
+     * And in both of them is tested the throw of IndexOutOfBoundException.
+     * At the end it is tested that the subList method return a not null list and then it is verified that the list contains only the element that are in the specified range.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked. The other methods used by this test are correctly working.
+     * <br> <br>
+     * Post-Condition: The subList method throws the IndexOutOfBoundException whent it is expected and in the other case it function correctly.
+     * <br><br>
+     * Expected Results: The subList construction is function correctly.
+     * @see myAdapter.ListAdapter#subList(index,index)
+     */
+    @Test 
+    public void testSubListIndex()
+    {
+        HList subList=null;
+        for(int i=0;i<argv.length;i++)
+            l1.add(argv[i]);
+        try
+        {
+            subList= l1.subList(-1, 1);
+            throw new Exception();
+        }catch(Exception e)
+        {
+            assertEquals("Invalid fromIndex for sublist is accepted", IndexOutOfBoundsException.class, e.getClass());
+        }
+
+        try
+        {
+            subList = l1.subList(0, l1.size()+1);
+            throw new Exception();
+        }catch(Exception e)
+        {
+            assertEquals("Invalid toIndex for sublist is accepted", IndexOutOfBoundsException.class, e.getClass());
+        }
+        subList=l1.subList(1,5);
+        assertNotNull(subList);
+        assertArrayEquals("The elements of the subList are wrong",new Object[]{ "qui", "pluto", "paperino", "qui"}, subList.toArray());
+
+    }
+
+    /**
+     * Test case summary: Test that the subList operation are backed correctly into the fatherList.
+     * <br><br>
+     * Test Case Design: The test case is designed to test that the subList operation are reflected into the fatherList.
+     * <br> <br>
+     * Test Description: The test use the clear, retainAll, addAll, removeAll, add, remove to test that these operation are reflected into the fatherList.
+     * This method uses two lists to invoke these methods, and compare the size expected with the size of the fatherList to understand if the operation are reflected.
+     * It is also verified that in the fatherList there are only the element expected.
+     * <br> <br>
+     * Pre-Condition: The constructor is already invoked. The other methods used by this test are correctly working.
+     * <br> <br>
+     * Post-Condition: The subList method manages to modify in the correct way the fatherLIst.
+     * <br><br>
+     * Expected Results: The subList operation function correctly.
+     * @see myAdapter.ListAdapter#subList(index,index)
+     */
+    @Test 
+    public void testSubListOperation()
+    {
+        HList subList=null;
+        for(int i=0;i<argv.length;i++)
+        {
+            l2.add(argv[i]);
+            l1.add(argv[i]);
+        }    
+        subList=l1.subList(1,5);
+        subList.clear();
+        assertEquals("The clear operation on the subList doesn't modify in the right way the size of the fatherList",2,l1.size());
+        assertArrayEquals("The fatherList haven't the expected elements", new Object[]{"pippo", "ciccio"}, l1.toArray());
+
+        subList.addAll(l2);
+        assertEquals("The addAll operation on the subList doesn't modify in the right way the size of the fatherList", 8 ,l1.size());
+        assertArrayEquals("The fatherList haven't the expected elements", new Object[]{"pippo","pippo", "qui", "pluto", "paperino", "qui", "ciccio", "ciccio"}, l1.toArray());
+
+        subList.removeAll(l2);
+        assertEquals("The removeAll operation on the subList doesn't modify in the right way the size of the fatherList", 2 ,l1.size());
+        assertArrayEquals("The fatherList haven't the expected elements", new Object[]{"pippo", "ciccio"}, l1.toArray());
+
+        subList.add(null);
+        assertEquals("The add operation on the subList doesn't modify in the right way the size of the fatherList", 3 ,l1.size());
+        assertArrayEquals("The fatherList haven't the expected elements", new Object[]{"pippo", null, "ciccio"}, l1.toArray());
+
+        subList.remove(null);
+        assertEquals("The remove operation on the subList doesn't modify in the right way the size of the fatherList", 2 ,l1.size());
+        assertArrayEquals("The fatherList haven't the expected elements", new Object[]{"pippo", "ciccio"}, l1.toArray());
+
+        subList=null;
+        l1.clear();
+        l2.clear();
+        for(int i=0;i<argv.length;i++)
+        {
+            l2.add(argv[i]);
+            l1.add(argv[i]);
+        }
+        subList=l1.subList(0,5);
+        HList subList2=l2.subList(1,4);
+        subList.retainAll(subList2);
+        assertEquals("The retainAll operation on the subList doesn't modify in the right way the size of the fatherList", 5 ,l1.size());
+        assertArrayEquals("", new Object[]{"qui","pluto","paperino","qui","ciccio"}, l1.toArray());
+    }
+
     //#endregion
 
     //#region testIterator
     
+    /**
+     * Test case summary: test that the listIterator return a correct iterator.
+     * <br> <br>
+     * Test case design: The test case is design to test that the listIterator method return a correct iterator and also that it throws IndexOutOfBoundException if the index is invalid.
+     * <br> <br>
+     * Test Description: The listIterator method is invoked to test if it returns a not null iterator. Then it is invoked with an invalid index to test the throw of IndexOutOfBoundException.
+     * At the end it is invoked with a correct index to test that a next() operation return the correct element.
+     * <br><br>
+     * Pre-Condition: The constructor is already invoked. The other methods used by this test are correctly working.
+     * <br> <br>
+     * Post-Condition: The listIterator manages correctly the different construction possibilities.
+     * <br><br>
+     * Expected Results: The ListIterator is constructed correctly.
+     * @see myAdapter.ListAdapter#listIterator()
+     * @see myAdapter.ListAdapter#listIterator(index)
+     */
+    @Test
+    public void testListIteratorConstructor()
+    {
+        for(int i=0;i<argv.length;i++)
+            l1.add(argv[i]);
+        
+        assertNotNull("The listIterator returned is null",l1.listIterator());
+
+        try
+        {
+            l1.listIterator(-1);
+            throw new Exception();
+        } catch (Exception e) {
+            assertEquals("Invalid index is accepted",IndexOutOfBoundsException.class, e.getClass());
+        }
+
+        li=l1.listIterator(5);
+        assertEquals(argv[5],li.next());
+    }
+
     /**
      * Test case summary: test that the iterator is correctly working.
      * <br><br>
@@ -598,7 +790,7 @@ public class TestList
      * @see myAdapter.ListAdapter#iterator()
      */
     @Test
-    public void TestIterator()
+    public void testIterator()
     {
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
@@ -639,7 +831,7 @@ public class TestList
      * @see  myAdapter.IteratorAdapter#hasPrevious()
      */
     @Test
-    public void TestListIterator()
+    public void testListIterator()
     {
         for(int i=0;i<argv.length;i++)
             l1.add(argv[i]);
