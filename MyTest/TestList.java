@@ -68,23 +68,42 @@ public class TestList
     //#region test listAdapter
 
     /**
-     * Test the constructor of the ListAdapter class.
+     * Test the constructors of the ListAdapter class.
      * <br> <br>
-     * Test case summary: test that the constructor of the listAdapter is working correctly.
+     * Test case summary: test that the constructors of the listAdapter is working correctly.
      * <br><br>
-     * Test Case Design: The test case is designed to test the constructor of the listAdapter.
+     * Test Case Design: The test case is designed to test the constructors of the listAdapter.
      * <br> <br>
      * Test Description: Assertion that verified that the listAdapter is not null.
+     * It also verifies that the constructor with an argument function correctly:<br>
+     * -if the parameter is null a NullPointerException is thrown.<br>
+     * -if the parameter is not null the listAdapter is correctly created, and have all the elements of the collection passed.
      * <br> <br>
      * Pre-Condition: The constructor is already invoked.
      * <br> <br>
-     * Post-Condition: The constructor return a non null element.
+     * Post-Condition: The constructor with no argument return a non null element. The cnstructor with a parameter must return a new list with the elements of the list passed.
      * <br><br>
-     * Expected Results: The constructor initialize a new element.
+     * Expected Results: The constructors initialize a new list.
      */
     @Test
     public void testInitialize()
-    {assertNotNull("After the constructor the list is null",l1);}
+    {
+        assertNotNull("After the constructor the list is null",l1);
+        try 
+        {
+            HList l=new ListAdapter(null);
+            throw new Exception();
+        } catch (Exception e) 
+        {
+            assertEquals("The constructor must throw an exception",NullPointerException.class, e.getClass());
+        }
+        for(int i=0;i<argv.length;i++)
+            l1.add(argv[i]);
+        l2=new ListAdapter(l1);
+        assertEquals("The listAdapter doesn't have the right size",l1.size(),l2.size());
+        assertArrayEquals("The listAdapter doesn't have the right elements",l1.toArray(),l2.toArray());
+        
+    }
 
     /**
      * Test case summary: test that the add method and get method are correctly working.

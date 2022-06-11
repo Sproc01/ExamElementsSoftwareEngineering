@@ -17,9 +17,13 @@ public class ListAdapter implements HList, HCollection
 
     /**
      * Create a new list with the element of the given collection.
+     * @exception NullPointerException if the collection is null
+     * @param c the collection to be copied
      */
     public ListAdapter(HCollection c)
     {
+        if(c==null)
+            throw new NullPointerException();
         v = new Vector();
         addAll(c);
     }

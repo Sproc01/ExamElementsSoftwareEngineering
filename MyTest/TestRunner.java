@@ -6,8 +6,9 @@ import java.util.*;
 import org.junit.runner.notification.Failure;
 
 /**
- * Class that run {@link TestList}.
- * It runs the class that contains all the test for {@link myAdapter.ListAdapter}.
+ * Main class to execute {@link TestList}
+ * <p>
+ * Precondition: Object methods are considered in a working status when they are used
  * @version JUnit 4.13
  * @version Harmcrest: 1.3
  * @version JVM from JME CLDC 1.1
