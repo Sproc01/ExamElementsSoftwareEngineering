@@ -18,7 +18,7 @@ public class TestRunner
 {
     /**
      * Main method: run the test suite.
-     * This will invoke all test of the suite, and print the result.
+     * This will invoke all tests of the suite, and print the result.
      * If there are some failure the method will print the messages of the failure.
      * @param args not used.
      */

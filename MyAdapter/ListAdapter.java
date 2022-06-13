@@ -204,8 +204,8 @@ public class ListAdapter implements HList, HCollection
      * @param index index of element to return.
      * @return the element at the specified position in this list.
      *
-     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0
-     *                                   || index &gt;= size()).
+     * @throws IndexOutOfBoundsException if the index is out of range (index < 0
+     *                                   || index >= size()).
      * @see {@link HList#get(int)} 
      */
     public Object get(int index)
@@ -625,7 +625,7 @@ public class ListAdapter implements HList, HCollection
         }
         
         /**
-         * Removes the element at the specified position in this list (optional operation). 
+         * Removes the element at the specified position in this list. 
          * Shifts any subsequent elements to the left (subtracts one from their indices). 
          * Returns the element that was removed from the list.
          * Remove the same element from the father list.
