@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 
 /**
  * This test suite provide some test methods for {@link myAdapter.ListAdapter}, {@link myAdapter.IteratorAdapter}.
+ * This test suite uses junit.Test and junit.Assert.
  * <br> <br>
  * Summary: This test suite tests all the functions of the ListAdapter:
  * Sometime single function, sometimes some functions togheter.
